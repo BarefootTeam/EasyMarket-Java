@@ -11,6 +11,15 @@ public class Produto {
     private String Descricao;
     private float  precoCusto;
     private Supermercado Supermercado;
+    private String foto;
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 
     public Produto() {
     }
