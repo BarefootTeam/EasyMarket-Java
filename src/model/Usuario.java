@@ -5,22 +5,33 @@ package model;
  * @author Leo
  */
 public class Usuario {
-    private long Id;
+    private Long Id;
     private String Login;
     private String Senha;
     private String Nome;
     private String Cpf;
+    private Supermercado Supermercado;
 
     public Usuario() {
     }
 
-    public long getId() {
+    public Supermercado getSupermercado() {
+        return Supermercado;
+    }
+
+    public void setSupermercado(Supermercado Supermercado) {
+        this.Supermercado = Supermercado;
+    }
+    
+
+    public Long getId() {
         return Id;
     }
 
-    public void setId(long Id) {
+    public void setId(Long Id) {
         this.Id = Id;
     }
+
 
     public String getLogin() {
         return Login;

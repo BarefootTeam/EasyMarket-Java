@@ -5,7 +5,7 @@ package model;
  * @author Leo
  */
 public class Produto {
-    private long Id;
+    private Long Id;
     private String Nome;
     private String Cod;
     private String Descricao;
@@ -24,15 +24,15 @@ public class Produto {
     public Produto() {
     }
 
-    
-    public long getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(long Id) {
+    public void setId(Long Id) {
         this.Id = Id;
     }
 
+    
     public String getNome() {
         return Nome;
     }

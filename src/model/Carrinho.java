@@ -7,7 +7,7 @@ import java.util.Date;
  * @author Leo
  */
 public class Carrinho {
-    private long Id;
+    private Long Id;
     private boolean Status;
     private Date Data;
     private Usuario Usuario;
@@ -15,12 +15,11 @@ public class Carrinho {
     public Carrinho() {
     }
 
-    
-    public long getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(long Id) {
+    public void setId(Long Id) {
         this.Id = Id;
     }
 

@@ -5,7 +5,7 @@ package model;
  * @author Leo
  */
 public class ItemCarrinho {
-    private long Id;
+    private Long Id;
     private Carrinho Carrinho;
     private Produto Produto;
     private float Valor;
@@ -14,15 +14,15 @@ public class ItemCarrinho {
     public ItemCarrinho() {
     }
 
-    
-    public long getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(long Id) {
+    public void setId(Long Id) {
         this.Id = Id;
     }
 
+    
     public Carrinho getCarrinho() {
         return Carrinho;
     }

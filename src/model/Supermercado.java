@@ -5,21 +5,21 @@ package model;
  * @author Leo
  */
 public class Supermercado {
-    private long Id;
+    private Long Id;
     private String Nome;
     private String Cnpj;
 
     public Supermercado() {
     }
 
-    
-    public long getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(long Id) {
+    public void setId(Long Id) {
         this.Id = Id;
     }
+
 
     public String getNome() {
         return Nome;
