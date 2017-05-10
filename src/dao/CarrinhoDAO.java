@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.Produto;
+import model.Carrinho;
 import util.BDUtil;
 import util.ConexaoPostGree;
 
@@ -19,43 +19,39 @@ import util.ConexaoPostGree;
  *
  * @author lucasm
  */
-public class ProdutoDAO {
+public class CarrinhoDAO {
     
-    private static ProdutoDAO produtoDAO;
+    private static CarrinhoDAO carrinhoDAO;
     
-    public static ProdutoDAO getInstance(){
-        if(produtoDAO == null){
-            produtoDAO = new ProdutoDAO();
+    public static CarrinhoDAO getInstance(){
+        if(carrinhoDAO == null){
+            carrinhoDAO = new CarrinhoDAO();
         }
-        return produtoDAO;
+        return carrinhoDAO;
     }
     
-//GetProduto
-    private Produto getProduto(ResultSet rs) throws SQLException{
-        Produto p = new Produto();
-        p.setId(rs.getLong("id"));
-        p.setNome(rs.getString("nome"));
-        p.setCod(rs.getString("cod"));
-        p.setDescricao(rs.getString("descricao"));
-        p.setPrecoCusto(rs.getFloat("precoCusto"));
-        p.setFoto(rs.getString("foto"));
+ //GetProduto
+    private Carrinho getCarrinho(ResultSet rs) throws SQLException{
+
+        Carrinho c = new Carrinho();
+        c.setId(rs.getLong("id"));
+        c.setStatus(rs.getBoolean("status"));
+        c.setData(rs.getDate("data"));
         
-        return p;
+        return c;
     }
-    
-    
-    
-//Metodo por ID
-    public Produto buscarPorID(long id){
-        String sql = " SELECT * FROM produto WHERE id = '"+ id+"'";
+
+ //Metodo por ID
+    public Carrinho buscarPorID(long id){
+        String sql = " SELECT * FROM carrinho WHERE id = '"+ id+"'";
         
-        Produto retorno = null;
+        Carrinho retorno = null;
         try {
             Statement state = ConexaoPostGree.getConexao().createStatement();
             ResultSet rs = state.executeQuery(sql);
             
             while(rs.next()){
-                retorno = getProduto(rs);
+                retorno = getCarrinho(rs);
             }
             
             state.close();
@@ -66,18 +62,18 @@ public class ProdutoDAO {
         
         return retorno;
     }
-    
+
 //Metodo buscar todos
-    public ArrayList<Produto> buscarTodos(){
-        String sql = "SELECT * FROM produto";
+    public ArrayList<Carrinho> buscarTodos(){
+        String sql = "SELECT * FROM carrinho";
         
-        ArrayList<Produto> retorno = new ArrayList<Produto>();
+        ArrayList<Carrinho> retorno = new ArrayList<Carrinho>();
         try {
             Statement state = ConexaoPostGree.getConexao().createStatement();
             ResultSet rs = state.executeQuery(sql);
             
             while(rs.next()){
-                retorno.add(getProduto(rs));
+                retorno.add(getCarrinho(rs));
             }
             
             state.close();
@@ -88,31 +84,28 @@ public class ProdutoDAO {
         
         return retorno;
     }
-    
+
 /*Metodo de persistencia
 * @param Produto
 * @return boolean
 */
-    public boolean persistir(Produto produto){
+    public boolean persistir(Carrinho carrinho){
         String sql;
         
-        if(produto.getId() != null){
-            sql = "UPDATE produto SET nome=?, cod=?, descricao=?, preco_custo=?, foto=? WHERE id = ?";
+        if(carrinho.getId() != null){
+            sql = "UPDATE carrinho SET status=?, data=? WHERE id = ?";
         }else{
-            produto.setId(BDUtil.getProxID());
-            sql = "INSERT INTO produto(nome,cod,descricao,preco_custo,foto) VALUES(?,?,?,?,?)";
+            carrinho.setId(BDUtil.getProxID());
+            sql = "INSERT INTO carrinho(status,data) VALUES(?,?)";
         }
         
         PreparedStatement state;
         try {
             state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
-            state.setString(1, produto.getNome());
-            state.setString(2, produto.getCod());
-            state.setString(2, produto.getDescricao());
-            state.setFloat(2, produto.getPrecoCusto());
-            state.setString(2, produto.getFoto());
-            state.setLong(3, produto.getId());
+            state.setString(1, carrinho.isStatus());
+            state.setString(2, carrinho.getData());
+            state.setLong(3, carrinho.getId());
             
             state.executeUpdate();
             
@@ -124,13 +117,13 @@ public class ProdutoDAO {
         
         return true;
     }
-    
+
 /*Metodo polimorfismo deletar
 *@param Supermercado OBJ
 *@return Supermercado.getId()
 */
-    public boolean deletar(Produto produto){
-        return deletar(produto.getId());
+    public boolean deletar(Carrinho carrinho){
+        return deletar(carrinho.getId());
     }
     
     
@@ -139,7 +132,7 @@ public class ProdutoDAO {
 * @return boolean
 */
     public boolean deletar(Long id){
-        String sql = "DELETE FROM produto WHERE id = ?";
+        String sql = "DELETE FROM carrinho WHERE id = ?";
         
         int total = 0;
         try {
@@ -155,5 +148,5 @@ public class ProdutoDAO {
         
         return total > 0;
     }
-    
+
 }
