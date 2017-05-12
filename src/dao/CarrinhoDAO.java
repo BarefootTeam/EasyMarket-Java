@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import model.Carrinho;
 import util.BDUtil;
 import util.ConexaoPostGree;
+import util.DateTimeUtil;
 
 /**
  *
@@ -103,8 +104,9 @@ public class CarrinhoDAO {
         try {
             state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
-            state.setString(1, carrinho.isStatus());
-            state.setString(2, carrinho.getData());
+            //Aguardar decidir como vai salvar no banco
+            //state.setString(1, carrinho.isStatus);
+            state.setString(2, DateTimeUtil.getInstance().parseDate(carrinho.getData()));
             state.setLong(3, carrinho.getId());
             
             state.executeUpdate();

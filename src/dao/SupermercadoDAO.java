@@ -99,7 +99,7 @@ public class SupermercadoDAO {
         String sql;
         
         if(supermercado.getId() != null){
-            sql = "UPDATE supermercado SET nome=?, ncpj=? WHERE id = ?";
+            sql = "UPDATE supermercado SET nome=?, cnpj=? WHERE id = ?";
         }else{
             supermercado.setId(BDUtil.getProxID());
             sql = "INSERT INTO supermercado(nome,cnpj,id) VALUES(?,?,?)";
