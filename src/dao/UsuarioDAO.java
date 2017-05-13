@@ -102,7 +102,7 @@ public class UsuarioDAO {
         String sql;
         
         if(usuario.getId() != null){
-            sql = "UPDATE usuario SET login=?, senha=?, nome=?, cpf=?, id_supermercado WHERE id = ?";
+            sql = "UPDATE usuario SET login=?, senha=?, nome=?, cpf=?, id_supermercado = ? WHERE id = ?";
         }else{
             usuario.setId(BDUtil.getProxID());
             sql = "INSERT INTO usuario(login,senha,nome,cpf,id_supermercado,id) VALUES(?,?,?,?,?,?)";

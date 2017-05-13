@@ -10,8 +10,8 @@ public class Carrinho {
     private Long Id;
     private boolean Status;
     private Date Data;
-    private Usuario Usuario;
-
+    private Cliente Cliente;
+    
     public Carrinho() {
     }
 
@@ -23,7 +23,7 @@ public class Carrinho {
         this.Id = Id;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return Status;
     }
 
@@ -39,13 +39,14 @@ public class Carrinho {
         this.Data = Data;
     }
 
-    public Usuario getUsuario() {
-        return Usuario;
+    public Cliente getCliente() {
+        return Cliente;
     }
 
-    public void setUsuario(Usuario Usuario) {
-        this.Usuario = Usuario;
+    public void setCliente(Cliente Cliente) {
+        this.Cliente = Cliente;
     }
+
     
     
     

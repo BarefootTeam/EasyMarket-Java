@@ -11,49 +11,50 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.Carrinho;
+import model.Cliente;
 import util.BDUtil;
 import util.ConexaoPostGree;
-import util.DateTimeUtil;
 
 /**
  *
- * @author lucasm
+ * @author Leo
  */
-public class CarrinhoDAO {
+public class ClienteDAO {
+
+    private static ClienteDAO clienteDAO;
     
-    private static CarrinhoDAO carrinhoDAO;
-    
-    public static CarrinhoDAO getInstance(){
-        if(carrinhoDAO == null){
-            carrinhoDAO = new CarrinhoDAO();
+    public static ClienteDAO getInstance(){
+        if(clienteDAO == null){
+            clienteDAO = new ClienteDAO();
         }
-        return carrinhoDAO;
+        return clienteDAO;
     }
     
- //GetProduto
-    private Carrinho getCarrinho(ResultSet rs) throws SQLException{
-
-        Carrinho c = new Carrinho();
+    //GetSupermercado
+    private Cliente getCliente(ResultSet rs) throws SQLException{
+        Cliente c = new Cliente();
         c.setId(rs.getLong("id"));
-        c.setStatus(rs.getBoolean("status"));
-        c.setData(rs.getDate("data"));
-        c.setCliente(ClienteDAO.getInstance().buscarPorID(rs.getLong("id_cliente")));
+        c.setNome(rs.getString("nome"));
+        c.setCpf(rs.getString("cpf"));
         
         return c;
     }
-
- //Metodo por ID
-    public Carrinho buscarPorID(long id){
-        String sql = " SELECT * FROM carrinho WHERE id = '"+ id+"'";
+    
+    
+    
+    //Metodo por ID
+    public Cliente buscarPorID(long id){
+        String sql = " SELECT * FROM cliente"
+                   + " WHERE id = '"+ id+"'";
         
-        Carrinho retorno = null;
+        Cliente retorno = null;
         try {
             Statement state = ConexaoPostGree.getConexao().createStatement();
             ResultSet rs = state.executeQuery(sql);
             
+            
             while(rs.next()){
-                retorno = getCarrinho(rs);
+                retorno = getCliente(rs);
             }
             
             state.close();
@@ -64,18 +65,22 @@ public class CarrinhoDAO {
         
         return retorno;
     }
-
-//Metodo buscar todos
-    public ArrayList<Carrinho> buscarTodos(){
-        String sql = "SELECT * FROM carrinho";
+    
+    
+    
+    
+    //Metodo buscar todos
+    public ArrayList<Cliente> buscarTodos(){
+        String sql = "SELECT * FROM cliente";
         
-        ArrayList<Carrinho> retorno = new ArrayList<Carrinho>();
+        ArrayList<Cliente> retorno = new ArrayList<Cliente>();
         try {
             Statement state = ConexaoPostGree.getConexao().createStatement();
             ResultSet rs = state.executeQuery(sql);
             
+            
             while(rs.next()){
-                retorno.add(getCarrinho(rs));
+                retorno.add(getCliente(rs));
             }
             
             state.close();
@@ -86,33 +91,36 @@ public class CarrinhoDAO {
         
         return retorno;
     }
-
-/*Metodo de persistencia
-* @param Produto
-* @return boolean
-*/
-    public boolean persistir(Carrinho carrinho){
+    
+    
+       
+    
+    
+    /*Metodo de persistencia
+    * @param Cliente
+    * @return boolean
+    */
+    public boolean persistir(Cliente cliente){
         String sql;
         
-        if(carrinho.getId() != null){
-            sql = "UPDATE carrinho SET status=?, data=?, id_cliente = ? WHERE id = ?";
+        if(cliente.getId() != null){
+            sql = "UPDATE cliente SET nome=?, cpf=? WHERE id = ?";
         }else{
-            carrinho.setId(BDUtil.getProxID());
-            sql = "INSERT INTO carrinho(status,data,id_cliente) VALUES(?,?,?)";
+            cliente.setId(BDUtil.getProxID());
+            sql = "INSERT INTO cliente(nome,cpf,id) VALUES(?,?,?)";
         }
         
         PreparedStatement state;
         try {
             state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
-            state.setBoolean(1, carrinho.getStatus());
-            state.setString(2, DateTimeUtil.getInstance().parseDate(carrinho.getData()));
-            state.setLong(3, carrinho.getId());
-            state.setLong(3, carrinho.getCliente().getId());
+            state.setString(3, cliente.getNome());
+            state.setString(4, cliente.getCpf());
+            state.setLong(6, cliente.getId());
             
             state.executeUpdate();
             
-            state.close();
+            state.close();            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ocorreu erro na persistencia");
             return false;
@@ -120,30 +128,36 @@ public class CarrinhoDAO {
         
         return true;
     }
-
-/*Metodo polimorfismo deletar
-*@param Supermercado OBJ
-*@return Supermercado.getId()
-*/
-    public boolean deletar(Carrinho carrinho){
-        return deletar(carrinho.getId());
+    
+    
+    
+    
+     /*
+    Metodo polimorfismo deletar
+    @param Cliente OBJ
+    @return Cliente.getId()
+    */
+    public boolean deletar(Cliente cliente){
+        return deletar(cliente.getId());
     }
     
     
-/*Metodo para deletar
-* @param Long id
-* @return boolean
-*/
+    /*Metodo para deletar
+    * @param Long id
+    * @return boolean
+    */
     public boolean deletar(Long id){
-        String sql = "DELETE FROM carrinho WHERE id = ?";
+        String sql = "DELETE FROM cliente WHERE id = ?";
         
         int total = 0;
         try {
             PreparedStatement state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
             state.setLong(1, id);
+            
             total = state.executeUpdate();
-            state.close();
+            
+            state.close();            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ocorreu erro na deleção");
             return false;
@@ -151,5 +165,4 @@ public class CarrinhoDAO {
         
         return total > 0;
     }
-
 }
