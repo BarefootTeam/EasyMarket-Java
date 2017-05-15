@@ -16,7 +16,7 @@ public class ConexaoPostGree {
         try {
             if ((conexao == null) || conexao.isClosed()) {
                 Class.forName("org.postgresql.Driver");
-                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sca", "postgres", "masterkey");
+                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/easymarket", "postgres", "masterkey");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);

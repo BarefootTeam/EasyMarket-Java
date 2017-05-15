@@ -10,10 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Produto;
 import util.BDUtil;
 import util.ConexaoPostGree;
+import util.DateTimeUtil;
 
 /**
  *
@@ -37,7 +39,7 @@ public class ProdutoDAO {
         p.setNome(rs.getString("nome"));
         p.setCod(rs.getString("cod"));
         p.setDescricao(rs.getString("descricao"));
-        p.setPrecoCusto(rs.getFloat("precoCusto"));
+        p.setPrecoCusto(rs.getFloat("preco_custo"));
         p.setFoto(rs.getString("foto"));
         
         return p;
@@ -66,6 +68,31 @@ public class ProdutoDAO {
         
         return retorno;
     }
+    
+    
+    //Metodo por Nome
+    public ArrayList<Produto> buscarPorNome(String nome){
+        String sql = " SELECT * FROM produto WHERE nome like '%"+ nome+"%'";
+        
+        ArrayList<Produto> retorno = new ArrayList<Produto>();
+       
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+
+            while (rs.next()) {
+                retorno.add(getProduto(rs));
+            }
+
+            state.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return retorno;
+    }
+    
     
 //Metodo buscar todos
     public ArrayList<Produto> buscarTodos(){
@@ -156,4 +183,44 @@ public class ProdutoDAO {
         return total > 0;
     }
     
-}
+    
+    
+    /**
+     * Busca os alunos de acordo com o indice passado 
+     *  { 0 - id, 1 - COD, 2 - nome }
+     * @param indice
+     * @param texto
+     * @return Lista de Produto
+     */
+    public List<Produto> buscar(int indice, String texto) {
+
+        String sql = "SELECT * FROM produto";
+
+        if (!texto.equals("")) {
+            if (indice == 0) { // COD
+                sql += " WHERE cod ='" + texto + "'";
+            } else if (indice == 1) { // NOME
+                sql += " WHERE upper(nome) like '%" + texto.toUpperCase() + "%'";
+            }
+        }
+
+        sql += " ORDER BY " + indice;
+        List<Produto> retorno = new ArrayList<Produto>();
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+
+            while (rs.next()) {
+                retorno.add(getProduto(rs));
+            }
+
+            state.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+
+        return retorno;
+
+    }
+ }
