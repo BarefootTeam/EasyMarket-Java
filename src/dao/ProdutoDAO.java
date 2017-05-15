@@ -109,10 +109,10 @@ public class ProdutoDAO {
             
             state.setString(1, produto.getNome());
             state.setString(2, produto.getCod());
-            state.setString(2, produto.getDescricao());
-            state.setFloat(2, produto.getPrecoCusto());
-            state.setString(2, produto.getFoto());
-            state.setLong(3, produto.getId());
+            state.setString(3, produto.getDescricao());
+            state.setFloat(4, produto.getPrecoCusto());
+            state.setString(5, produto.getFoto());
+            state.setLong(6, produto.getId());
             
             state.executeUpdate();
             

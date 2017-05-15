@@ -108,7 +108,7 @@ public class CarrinhoDAO {
             state.setBoolean(1, carrinho.getStatus());
             state.setString(2, DateTimeUtil.getInstance().parseDate(carrinho.getData()));
             state.setLong(3, carrinho.getId());
-            state.setLong(3, carrinho.getCliente().getId());
+            state.setLong(4, carrinho.getCliente().getId());
             
             state.executeUpdate();
             

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.Cliente;
+import model.ItemCarrinho;
 import util.BDUtil;
 import util.ConexaoPostGree;
 
@@ -19,42 +19,44 @@ import util.ConexaoPostGree;
  *
  * @author Leo
  */
-public class ClienteDAO {
-
-    private static ClienteDAO clienteDAO;
+public class ItemCarrinhoDAO {
     
-    public static ClienteDAO getInstance(){
-        if(clienteDAO == null){
-            clienteDAO = new ClienteDAO();
+    private static ItemCarrinhoDAO itemCarrinhoDAO;
+    
+    public static ItemCarrinhoDAO getInstance(){
+        if(itemCarrinhoDAO == null){
+            itemCarrinhoDAO = new ItemCarrinhoDAO();
         }
-        return clienteDAO;
+        return itemCarrinhoDAO;
     }
     
     //GetSupermercado
-    private Cliente getCliente(ResultSet rs) throws SQLException{
-        Cliente c = new Cliente();
-        c.setId(rs.getLong("id"));
-        c.setNome(rs.getString("nome"));
-        c.setCpf(rs.getString("cpf"));
+    private ItemCarrinho getItemCarrinho(ResultSet rs) throws SQLException{
+        ItemCarrinho i = new ItemCarrinho();
+        i.setId(rs.getLong("id"));
+        i.setCarrinho(CarrinhoDAO.getInstance().buscarPorID(rs.getLong("id_carrinho")));
+        i.setProduto(ProdutoDAO.getInstance().buscarPorID(rs.getLong("id_produto")));
+        i.setValor(rs.getFloat("valor"));
+        i.setQuantidade(rs.getInt("quantidade"));
         
-        return c;
+        return i;
     }
     
     
     
     //Metodo por ID
-    public Cliente buscarPorID(long id){
-        String sql = " SELECT * FROM cliente"
+    public ItemCarrinho buscarPorID(long id){
+        String sql = " SELECT * FROM itens_carrinho"
                    + " WHERE id = '"+ id+"'";
         
-        Cliente retorno = null;
+        ItemCarrinho retorno = null;
         try {
             Statement state = ConexaoPostGree.getConexao().createStatement();
             ResultSet rs = state.executeQuery(sql);
             
             
             while(rs.next()){
-                retorno = getCliente(rs);
+                retorno = getItemCarrinho(rs);
             }
             
             state.close();
@@ -70,17 +72,17 @@ public class ClienteDAO {
     
     
     //Metodo buscar todos
-    public ArrayList<Cliente> buscarTodos(){
-        String sql = "SELECT * FROM cliente";
+    public ArrayList<ItemCarrinho> buscarTodos(){
+        String sql = "SELECT * FROM itens_carrinho";
         
-        ArrayList<Cliente> retorno = new ArrayList<Cliente>();
+        ArrayList<ItemCarrinho> retorno = new ArrayList<ItemCarrinho>();
         try {
             Statement state = ConexaoPostGree.getConexao().createStatement();
             ResultSet rs = state.executeQuery(sql);
             
             
             while(rs.next()){
-                retorno.add(getCliente(rs));
+                retorno.add(getItemCarrinho(rs));
             }
             
             state.close();
@@ -100,23 +102,24 @@ public class ClienteDAO {
     * @param Cliente
     * @return boolean
     */
-    public boolean persistir(Cliente cliente){
+    public boolean persistir(ItemCarrinho itemCarrinho){
         String sql;
         
-        if(cliente.getId() != null){
-            sql = "UPDATE cliente SET nome=?, cpf=? WHERE id = ?";
+        if(itemCarrinho.getId() != null){
+            sql = "UPDATE itens_carrinho SET id_produto=?,id_carrinho=?,valor=?,quantidade=? WHERE id = ?";
         }else{
-            cliente.setId(BDUtil.getProxID());
-            sql = "INSERT INTO cliente(nome,cpf,id) VALUES(?,?,?)";
+            itemCarrinho.setId(BDUtil.getProxID());
+            sql = "INSERT INTO cliente(id_produto,id_carrinho,valor,quantidade,id) VALUES(?,?,?,?,?)";
         }
         
         PreparedStatement state;
         try {
             state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
-            state.setString(1, cliente.getNome());
-            state.setString(2, cliente.getCpf());
-            state.setLong(3, cliente.getId());
+            state.setLong(1, itemCarrinho.getProduto().getId());
+            state.setLong(2, itemCarrinho.getCarrinho().getId());
+            state.setFloat(3, itemCarrinho.getValor());
+            state.setInt(4, itemCarrinho.getQuantidade());
             
             state.executeUpdate();
             
@@ -137,8 +140,8 @@ public class ClienteDAO {
     @param Cliente OBJ
     @return Cliente.getId()
     */
-    public boolean deletar(Cliente cliente){
-        return deletar(cliente.getId());
+    public boolean deletar(ItemCarrinho itemCarrinho){
+        return deletar(itemCarrinho.getId());
     }
     
     
@@ -147,7 +150,7 @@ public class ClienteDAO {
     * @return boolean
     */
     public boolean deletar(Long id){
-        String sql = "DELETE FROM cliente WHERE id = ?";
+        String sql = "DELETE FROM itemCarrinho WHERE id = ?";
         
         int total = 0;
         try {
