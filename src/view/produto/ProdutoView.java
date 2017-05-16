@@ -7,6 +7,7 @@ package view.produto;
 
 import control.ProdutoController;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
@@ -37,6 +38,9 @@ public class ProdutoView extends javax.swing.JFrame {
         jtfBuscar = new javax.swing.JTextField();
         jcbIndices = new javax.swing.JComboBox();
         jbOK = new javax.swing.JButton();
+        jbNovo = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtDados = new javax.swing.JTable();
 
@@ -56,31 +60,70 @@ public class ProdutoView extends javax.swing.JFrame {
             }
         });
 
+        jbNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Create.png"))); // NOI18N
+        jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNovoActionPerformed(evt);
+            }
+        });
+
+        jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Notes.png"))); // NOI18N
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
+
+        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Delete.png"))); // NOI18N
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jcbIndices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbOK, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbIndices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbOK, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbExcluir)))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbIndices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbOK))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbOK)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbIndices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbNovo)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbEditar)
+                        .addComponent(jbExcluir)))
+                .addGap(22, 22, 22))
         );
 
         jtDados.setModel(new javax.swing.table.DefaultTableModel(
@@ -101,14 +144,14 @@ public class ProdutoView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,6 +193,59 @@ public class ProdutoView extends javax.swing.JFrame {
         //jtAluno.getColumnModel().getColumn(0).setWidth(0);
     }//GEN-LAST:event_jbOKActionPerformed
 
+    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
+        ProdutoEditView v = new ProdutoEditView();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+    }//GEN-LAST:event_jbNovoActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+       int linha = jtDados.getSelectedRow();
+
+        //Verifica se existe alguem selecionado 
+        if (linha >= 0) {
+           Long id = (Long) jtDados.getValueAt(linha, 0);
+           
+           Produto produto = ProdutoController.getInstance().buscarID(id);
+           
+           ProdutoEditView v =  new ProdutoEditView();
+           v.setLocationRelativeTo(null);
+           v.setDados(produto);
+           v.setVisible(true);
+           
+           jbOK.doClick();
+       
+        }else{
+           JOptionPane.showMessageDialog(this, "Nenhum Registro foi selecionado.");
+        }
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    //Excluindo registro
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+         int linha = jtDados.getSelectedRow();
+
+        //Verifica se existe alguem selecionado 
+        if (linha >= 0) {
+
+            if (JOptionPane.showConfirmDialog(this, "Deseja excluir ?","Opção", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                // Pega o valor da primeira coluna o ID do produto
+                Long id = (Long) jtDados.getValueAt(linha, 0);
+
+                //Dispar o metodo de deleçao do a partir do ID do aluno passado 
+                if (ProdutoController.getInstance().deletar(id)) {
+                    JOptionPane.showMessageDialog(this, "Registro deletado com sucesso.");
+
+                    //jbOkActionPerformed(evt); ou 
+                    jbOK.doClick();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro na deleção do Registro.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado.");
+        }  
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,6 +285,9 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbExcluir;
+    private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbOK;
     private javax.swing.JComboBox jcbIndices;
     private javax.swing.JTable jtDados;

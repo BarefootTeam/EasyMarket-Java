@@ -6,9 +6,11 @@
 package control;
 
 import dao.ProdutoDAO;
+import dao.SupermercadoDAO;
 import java.util.ArrayList;
 import java.util.List;
 import model.Produto;
+import model.Supermercado;
 
 /**
  *
@@ -57,6 +59,11 @@ public class ProdutoController {
     public List<Produto> buscar(int indice, String texto) {
   
         return ProdutoDAO.getInstance().buscar(indice, texto);
+    }
+    
+    //Busca dos mercados
+    public List<Supermercado> BuscarTodosMercados(){
+      return SupermercadoDAO.getInstance().buscarTodos();
     }
 
 }

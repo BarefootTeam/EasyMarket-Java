@@ -36,6 +36,12 @@ public class Supermercado {
     public void setCnpj(String Cnpj) {
         this.Cnpj = Cnpj;
     }
+
+    @Override
+    public String toString() {
+        return Id + " - " + Nome;
+    }
+    
     
     
     

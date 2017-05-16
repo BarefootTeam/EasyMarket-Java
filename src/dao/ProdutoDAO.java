@@ -40,6 +40,7 @@ public class ProdutoDAO {
         p.setCod(rs.getString("cod"));
         p.setDescricao(rs.getString("descricao"));
         p.setPrecoCusto(rs.getFloat("preco_custo"));
+        p.setSupermercado(SupermercadoDAO.getInstance().buscarPorID(rs.getLong("id_supermercado")));
         p.setFoto(rs.getString("foto"));
         
         return p;
@@ -124,28 +125,29 @@ public class ProdutoDAO {
         String sql;
         
         if(produto.getId() != null){
-            sql = "UPDATE produto SET nome=?, cod=?, descricao=?, preco_custo=?, foto=? WHERE id = ?";
+            sql = "UPDATE produto SET id_supermercado = ?, nome=?, cod=?, descricao=?, preco_custo=?, foto=? WHERE id = ?";
         }else{
             produto.setId(BDUtil.getProxID());
-            sql = "INSERT INTO produto(nome,cod,descricao,preco_custo,foto) VALUES(?,?,?,?,?)";
+            sql = "INSERT INTO produto(id_supermercado,nome,cod,descricao,preco_custo,foto,id) VALUES(?,?,?,?,?,?,?)";
         }
         
         PreparedStatement state;
         try {
             state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
-            state.setString(1, produto.getNome());
-            state.setString(2, produto.getCod());
-            state.setString(3, produto.getDescricao());
-            state.setFloat(4, produto.getPrecoCusto());
-            state.setString(5, produto.getFoto());
-            state.setLong(6, produto.getId());
+            state.setLong(1, produto.getSupermercado().getId());
+            state.setString(2, produto.getNome());
+            state.setString(3, produto.getCod());
+            state.setString(4, produto.getDescricao());
+            state.setFloat(5, produto.getPrecoCusto());
+            state.setString(6, produto.getFoto());
+            state.setLong(7, produto.getId());
             
             state.executeUpdate();
             
             state.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu erro na persistencia");
+            JOptionPane.showMessageDialog(null, "Ocorreu erro na persistencia: "+ e.getMessage());
             return false;
         }
         
@@ -198,13 +200,12 @@ public class ProdutoDAO {
 
         if (!texto.equals("")) {
             if (indice == 0) { // COD
-                sql += " WHERE cod ='" + texto + "'";
+                sql += " WHERE upper(cod) = '" + texto.toUpperCase() + "'";
             } else if (indice == 1) { // NOME
                 sql += " WHERE upper(nome) like '%" + texto.toUpperCase() + "%'";
             }
         }
 
-        sql += " ORDER BY " + indice;
         List<Produto> retorno = new ArrayList<Produto>();
         try {
             Statement state = ConexaoPostGree.getConexao().createStatement();

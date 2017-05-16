@@ -31,7 +31,7 @@ public class SupermercadoDAO {
         i.setId(rs.getLong("id"));
         i.setNome(rs.getString("nome"));
         i.setCnpj(rs.getString("cnpj"));
-        
+   
         return i;
     }
     
