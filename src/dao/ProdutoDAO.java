@@ -40,8 +40,9 @@ public class ProdutoDAO {
         p.setCod(rs.getString("cod"));
         p.setDescricao(rs.getString("descricao"));
         p.setPrecoCusto(rs.getFloat("preco_custo"));
+        p.setFoto(rs.getBytes("foto"));
         p.setSupermercado(SupermercadoDAO.getInstance().buscarPorID(rs.getLong("id_supermercado")));
-        p.setFoto(rs.getString("foto"));
+
         
         return p;
     }
@@ -140,7 +141,7 @@ public class ProdutoDAO {
             state.setString(3, produto.getCod());
             state.setString(4, produto.getDescricao());
             state.setFloat(5, produto.getPrecoCusto());
-            state.setString(6, produto.getFoto());
+            state.setBytes(6, produto.getFoto());
             state.setLong(7, produto.getId());
             
             state.executeUpdate();
