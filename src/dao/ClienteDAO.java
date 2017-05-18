@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import util.BDUtil;
@@ -164,5 +165,46 @@ public class ClienteDAO {
         }
         
         return total > 0;
+    }
+    
+    
+    
+    
+    /**
+     * Busca os cliente de acordo com o indice passado 
+     *  { 0 - Nome, 1 - CPF }
+     * @param indice
+     * @param texto
+     * @return Lista de Produto
+     */
+    public List<Cliente> buscar(int indice, String texto) {
+
+        String sql = "SELECT * FROM cliente";
+
+        if (!texto.equals("")) {
+            if (indice == 0) { // NOME
+                sql += " WHERE upper(nome) like '%" + texto.toUpperCase() + "%'";
+            } else if (indice == 1) { // CPF
+                sql += " WHERE cpf = '" + texto.toUpperCase() + "'";
+            }
+        }
+
+        List<Cliente> retorno = new ArrayList<Cliente>();
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+
+            while (rs.next()) {
+                retorno.add(getCliente(rs));
+            }
+
+            state.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+
+        return retorno;
+
     }
 }

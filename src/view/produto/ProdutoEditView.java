@@ -242,12 +242,15 @@ public class ProdutoEditView extends javax.swing.JFrame {
     //Persistindo objeto no banco
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         try {
+                if(validation()){
                 // Pega os dados informados nos campos cria um objeto produto e dispara o metodo de persitêcia na tela 
+               
                 ProdutoController.getInstance().persistir(getDados());
 
                 JOptionPane.showMessageDialog(this, "Registro gravado com sucesso.");
                 //Fecha a tela 
                 dispose();
+                }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Ocorreu o seguinte erro na gravação dos dados: " + ex.getMessage());
             }
@@ -417,6 +420,7 @@ public class ProdutoEditView extends javax.swing.JFrame {
      * @return Produto
      */
     public Produto getDados() {
+        
         Produto p = new Produto();
 
         /**
@@ -439,6 +443,26 @@ public class ProdutoEditView extends javax.swing.JFrame {
                   
         return p;
     }
-    //Validação dos campos em branco
-
+    //Validação dos campos em obrigatórios
+    private boolean validation(){
+        if(jtfNome.getText().endsWith("")){
+          JOptionPane.showMessageDialog(this, "Campo nome é obrigatório.");
+          jtfNome.requestFocus();
+          return false;
+        }
+        
+        if(jtfCod.getText().endsWith("")){
+          JOptionPane.showMessageDialog(this, "Campo COD é obrigatório.");
+          jtfCod.requestFocus();
+          return false;
+        }
+        
+        if(jtfPreco.getText().endsWith("")){
+          JOptionPane.showMessageDialog(this, "Campo Preço é obrigatório.");
+          jtfNome.requestFocus();
+          return false;
+        }
+        
+        return true;
+    }
 }

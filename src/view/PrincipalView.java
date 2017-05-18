@@ -6,6 +6,7 @@
 package view;
 
 import javax.swing.JFrame;
+import view.cliente.ClienteView;
 import view.produto.ProdutoView;
 
 /**
@@ -33,6 +34,7 @@ public class PrincipalView extends javax.swing.JFrame {
         MENU = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiCadastroDeProduto = new javax.swing.JMenuItem();
+        jmiClientes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +47,14 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiCadastroDeProduto);
+
+        jmiClientes.setText("Clientes");
+        jmiClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiClientesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiClientes);
 
         MENU.add(jMenu1);
 
@@ -69,6 +79,12 @@ public class PrincipalView extends javax.swing.JFrame {
         v.setLocationRelativeTo(null);
         v.setVisible(true);
     }//GEN-LAST:event_jmiCadastroDeProdutoActionPerformed
+
+    private void jmiClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesActionPerformed
+        ClienteView v = new ClienteView();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+    }//GEN-LAST:event_jmiClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,5 +128,6 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuBar MENU;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jmiCadastroDeProduto;
+    private javax.swing.JMenuItem jmiClientes;
     // End of variables declaration//GEN-END:variables
 }

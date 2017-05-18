@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.produto;
+package view.cliente;
 
-import control.ProdutoController;
+import control.ClienteController;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Produto;
+import model.Cliente;
 
 /**
  *
  * @author Leo
  */
-public class ProdutoView extends javax.swing.JFrame {
+public class ClienteView extends javax.swing.JFrame {
 
     /**
-     * Creates new form ProdutoView
+     * Creates new form ClienteView
      */
-    public ProdutoView() {
+    public ClienteView() {
         initComponents();
     }
 
@@ -35,30 +35,22 @@ public class ProdutoView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jtfBuscar = new javax.swing.JTextField();
-        jcbIndices = new javax.swing.JComboBox();
-        jbOK = new javax.swing.JButton();
+        jcbOpcao = new javax.swing.JComboBox();
+        jtBusca = new javax.swing.JTextField();
         jbNovo = new javax.swing.JButton();
         jbEditar = new javax.swing.JButton();
-        jbExcluir = new javax.swing.JButton();
+        jbDelete = new javax.swing.JButton();
+        jbOK = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtDados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel1.setText("Buscar");
 
-        jcbIndices.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome" }));
-
-        jbOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Find.png"))); // NOI18N
-        jbOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbOKActionPerformed(evt);
-            }
-        });
+        jcbOpcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nome", "CPF" }));
 
         jbNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Create.png"))); // NOI18N
         jbNovo.setText("Novo");
@@ -76,11 +68,18 @@ public class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Delete.png"))); // NOI18N
-        jbExcluir.setText("Excluir");
-        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+        jbDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Delete.png"))); // NOI18N
+        jbDelete.setText("Delete");
+        jbDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbExcluirActionPerformed(evt);
+                jbDeleteActionPerformed(evt);
+            }
+        });
+
+        jbOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Zoom.png"))); // NOI18N
+        jbOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbOKActionPerformed(evt);
             }
         });
 
@@ -89,41 +88,39 @@ public class ProdutoView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbDelete))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbIndices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbOK, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbEditar)
+                        .addComponent(jcbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jbExcluir)))
-                .addContainerGap(331, Short.MAX_VALUE))
+                        .addComponent(jtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbOK)))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbOK)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jcbIndices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jcbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbOK))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNovo)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbEditar)
-                        .addComponent(jbExcluir)))
-                .addGap(22, 22, 22))
+                    .addComponent(jbEditar)
+                    .addComponent(jbDelete))
+                .addContainerGap())
         );
 
         jtDados.setModel(new javax.swing.table.DefaultTableModel(
@@ -144,37 +141,34 @@ public class ProdutoView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Botão OK (buscar dados)
     private void jbOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOKActionPerformed
-        
-        List<Produto> produtos = ProdutoController.getInstance().buscar(jcbIndices.getSelectedIndex(), jtfBuscar.getText());
+        List<Cliente> clientes = ClienteController.getInstance().buscar(jcbOpcao.getSelectedIndex(), jtBusca.getText());
         
         //List<Produto> produtos = ProdutoController.getInstance().BuscarTodos();
         
         // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("(ID)");
-        modelo.addColumn("Código");
         modelo.addColumn("Nome");
-        modelo.addColumn("Descricao");
-        modelo.addColumn("Valor");
+        modelo.addColumn("CPF");
 
-        for (Produto p : produtos) {
+        for (Cliente p : clientes) {
             // Seta os valores do objeto para o JTableModel 
-            modelo.addRow(new Object[]{p.getId(), p.getCod(), p.getNome(), p.getDescricao(), p.getPrecoCusto()});
+            modelo.addRow(new Object[]{p.getId(), p.getNome(), p.getCpf()});
         }
         //Limpa a JTable (Grid)
         jtDados.removeAll();
@@ -183,9 +177,8 @@ public class ProdutoView extends javax.swing.JFrame {
 
         //Ajusta o tamanho da primeira coluna 
         jtDados.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jtDados.getColumnModel().getColumn(1).setPreferredWidth(60);
-        jtDados.getColumnModel().getColumn(2).setPreferredWidth(180);
-        jtDados.getColumnModel().getColumn(3).setPreferredWidth(220);
+        jtDados.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jtDados.getColumnModel().getColumn(2).setPreferredWidth(60);
 
         //Ocutar coluna ID 
         ///jtAluno.getColumnModel().getColumn(0).setMinWidth(0);
@@ -193,8 +186,33 @@ public class ProdutoView extends javax.swing.JFrame {
         //jtAluno.getColumnModel().getColumn(0).setWidth(0);
     }//GEN-LAST:event_jbOKActionPerformed
 
+    private void jbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeleteActionPerformed
+        int linha = jtDados.getSelectedRow();
+
+        //Verifica se existe alguem selecionado 
+        if (linha >= 0) {
+
+            if (JOptionPane.showConfirmDialog(this, "Deseja excluir ?","Opção", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                // Pega o valor da primeira coluna o ID do produto
+                Long id = (Long) jtDados.getValueAt(linha, 0);
+
+                //Dispar o metodo de deleçao do a partir do ID do aluno passado 
+                if (ClienteController.getInstance().deletar(id)) {
+                    JOptionPane.showMessageDialog(this, "Registro deletado com sucesso.");
+
+                    //jbOkActionPerformed(evt); ou 
+                    jbOK.doClick();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro na deleção do Registro.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado.");
+        }
+    }//GEN-LAST:event_jbDeleteActionPerformed
+
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
-        ProdutoEditView v = new ProdutoEditView();
+        ClienteEditView v = new ClienteEditView();
         v.setLocationRelativeTo(null);
         v.setVisible(true);
     }//GEN-LAST:event_jbNovoActionPerformed
@@ -206,11 +224,11 @@ public class ProdutoView extends javax.swing.JFrame {
         if (linha >= 0) {
            Long id = (Long) jtDados.getValueAt(linha, 0);
            
-           Produto produto = ProdutoController.getInstance().buscarID(id);
+           Cliente cliente = ClienteController.getInstance().buscarID(id);
            
-           ProdutoEditView v =  new ProdutoEditView();
+           ClienteEditView v =  new ClienteEditView();
            v.setLocationRelativeTo(null);
-           v.setDados(produto);
+           v.setDados(cliente);
            v.setVisible(true);
            
            jbOK.doClick();
@@ -219,32 +237,6 @@ public class ProdutoView extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(this, "Nenhum Registro foi selecionado.");
         }
     }//GEN-LAST:event_jbEditarActionPerformed
-
-    //Excluindo registro
-    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        int linha = jtDados.getSelectedRow();
-
-        //Verifica se existe alguem selecionado 
-        if (linha >= 0) {
-
-            if (JOptionPane.showConfirmDialog(this, "Deseja excluir ?","Opção", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                // Pega o valor da primeira coluna o ID do produto
-                Long id = (Long) jtDados.getValueAt(linha, 0);
-
-                //Dispar o metodo de deleçao do a partir do ID do aluno passado 
-                if (ProdutoController.getInstance().deletar(id)) {
-                    JOptionPane.showMessageDialog(this, "Registro deletado com sucesso.");
-
-                    //jbOkActionPerformed(evt); ou 
-                    jbOK.doClick();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Erro na deleção do Registro.");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado.");
-        }  
-    }//GEN-LAST:event_jbExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,20 +255,20 @@ public class ProdutoView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProdutoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProdutoView().setVisible(true);
+                new ClienteView().setVisible(true);
             }
         });
     }
@@ -285,12 +277,12 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbDelete;
     private javax.swing.JButton jbEditar;
-    private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbOK;
-    private javax.swing.JComboBox jcbIndices;
+    private javax.swing.JComboBox jcbOpcao;
+    private javax.swing.JTextField jtBusca;
     private javax.swing.JTable jtDados;
-    private javax.swing.JTextField jtfBuscar;
     // End of variables declaration//GEN-END:variables
 }
