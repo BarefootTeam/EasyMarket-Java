@@ -138,44 +138,40 @@ public class AutenticacaoUserView extends javax.swing.JFrame {
         //if (validation(senha)) {
         Usuario u = new Usuario();
         try {
-            
+
             u = UsuarioController.getInstance().Autenticacao(login, senha);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Não encontrado");
         }
-        
-        
+
         try {
-    
-            
+
             if (u.getSenha() == null) {
-            JOptionPane.showMessageDialog(this, "Login inválido");
-        } else {
+                JOptionPane.showMessageDialog(this, "Login inválido");
+            } else {
 
-            try {
+                try {
 
-                SessaoUserController.getInstance().setUsuario(u);
+                    SessaoUserController.getInstance().setUsuario(u);
 
-                JOptionPane.showMessageDialog(this, "Olá, bem vindo ao Easy Market");
-                PrincipalView v = new PrincipalView();
-                v.setLocationRelativeTo(null);
-                v.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                v.setVisible(true);
+                    JOptionPane.showMessageDialog(this, "Olá, bem vindo ao Easy Market");
+                    PrincipalView v = new PrincipalView();
+                    v.setLocationRelativeTo(null);
+                    v.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    v.setVisible(true);
 
-                this.setVisible(false);
+                    this.setVisible(false);
 
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro no Login");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Erro no Login");
+                }
+
             }
 
-        }
-
-            
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro no Login");
         }
-    
+
        // }
 
     }//GEN-LAST:event_jbtEntrarActionPerformed

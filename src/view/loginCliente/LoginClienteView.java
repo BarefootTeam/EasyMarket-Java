@@ -148,34 +148,44 @@ public class LoginClienteView extends javax.swing.JFrame {
     private void jbtLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogarActionPerformed
         //Verifica se o CPF existe no banco
         Cliente c = new Cliente();
-        c = ClienteController.getInstance().buscarCPF(jtfCPF.getText());
-        if(c.getCpf() == ""){//Realiza novo cadastro e loga o usuario
-            
-            try {
-            if(validation()){
-                // Pega os dados informados nos campos cria um objeto produto e dispara o metodo de persitêcia na tela 
-                
-                ClienteController.getInstance().persistir(c);
-                SessaoClienteController.getInstance().setCliente(getDados());
 
-                JOptionPane.showMessageDialog(this, "Olá, bem vindo ao Easy Market");
-                CarrinhoView v = new CarrinhoView();
-                v.setLocationRelativeTo(null);
-                v.setVisible(true);
-                this.setVisible(false);
-                
-             }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Ocorreu o seguinte erro na gravação dos dados: " + ex.getMessage());
-            }
-            
-        }else{//Cria sessao e redireciona
+        try {
+            c = ClienteController.getInstance().buscarCPF(jtfCPF.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro na busca");
+        }
+
+        try {
+
+            if (c == null) {//Realiza novo cadastro e loga o usuario
+
+                try {
+                        // Pega os dados informados nos campos cria um objeto produto e dispara o metodo de persitêcia na tela 
+
+                        ClienteController.getInstance().persistir(getDados());
+                        SessaoClienteController.getInstance().setCliente(getDados());
+
+                        JOptionPane.showMessageDialog(this, "Olá, bem vindo ao Easy Market");
+                        CarrinhoView v = new CarrinhoView();
+                        v.setLocationRelativeTo(null);
+                        v.setVisible(true);
+                        this.setVisible(false);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Ocorreu o seguinte erro na gravação dos dados: " + ex.getMessage());
+                }
+
+            } else {//Cria sessao e redireciona
                 SessaoClienteController.getInstance().setCliente(c);
 
                 CarrinhoView v = new CarrinhoView();
                 v.setLocationRelativeTo(null);
                 v.setVisible(true);
                 this.setVisible(false);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro no processo");
         }
     }//GEN-LAST:event_jbtLogarActionPerformed
 
@@ -184,70 +194,64 @@ public class LoginClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        if (evt.getKeyCode() == evt.VK_F2 ){
-		AutenticacaoUserView v = new AutenticacaoUserView();
-                v.setLocationRelativeTo(null);
-                v.setVisible(true);
-                this.setVisible(false);                
+        if (evt.getKeyCode() == evt.VK_F2) {
+            AutenticacaoUserView v = new AutenticacaoUserView();
+            v.setLocationRelativeTo(null);
+            v.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_formKeyPressed
 
     private void jtfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeKeyPressed
-        if (evt.getKeyCode() == evt.VK_F2 ){
-		AutenticacaoUserView v = new AutenticacaoUserView();
-                v.setLocationRelativeTo(null);
-                v.setVisible(true);
-                this.setVisible(false);
+        if (evt.getKeyCode() == evt.VK_F2) {
+            AutenticacaoUserView v = new AutenticacaoUserView();
+            v.setLocationRelativeTo(null);
+            v.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jtfNomeKeyPressed
 
     private void jtfCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCPFKeyPressed
-        if (evt.getKeyCode() == evt.VK_F2 ){
-		AutenticacaoUserView v = new AutenticacaoUserView();
-                v.setLocationRelativeTo(null);
-                v.setVisible(true);
-                this.setVisible(false);
+        if (evt.getKeyCode() == evt.VK_F2) {
+            AutenticacaoUserView v = new AutenticacaoUserView();
+            v.setLocationRelativeTo(null);
+            v.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jtfCPFKeyPressed
 
-    
     /**
      * Pega os dados dos componentes da View e joga para o objeto Cliente
      *
      * @return Cliente
      */
     public Cliente getDados() {
-        
-        Cliente c = new Cliente();
 
+        Cliente c = new Cliente();
 
         c.setNome(jtfNome.getText());
         c.setCpf(jtfCPF.getText());
-        
-                  
+
         return c;
     }
-    
-    
-    
+
     //Validação dos campos em obrigatórios
-    private boolean validation(){
-        if(jtfNome.getText().equals("")){
-          JOptionPane.showMessageDialog(this, "Campo nome é obrigatório.");
-          jtfNome.requestFocus();
-          return false;
+    private boolean validation() {
+        if (jtfNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo nome é obrigatório.");
+            jtfNome.requestFocus();
+            return false;
         }
-        
-        if(jtfCPF.getText().equals("")){
-          JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório.");
-          jtfCPF.requestFocus();
-          return false;
+
+        if (jtfCPF.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório.");
+            jtfCPF.requestFocus();
+            return false;
         }
-        
+
         return true;
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
