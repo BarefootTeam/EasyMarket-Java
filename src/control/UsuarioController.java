@@ -42,8 +42,12 @@ public class UsuarioController {
     }
 
     public Usuario buscarID(Long id) {
-   
         return UsuarioDAO.getInstance().buscarPorID(id);
+    }
+    
+    //Metodo usado na autenticacao
+    public Usuario Autenticacao(String login, String senha) {
+        return UsuarioDAO.getInstance().Autenticacao(login,senha);
     }
 
 

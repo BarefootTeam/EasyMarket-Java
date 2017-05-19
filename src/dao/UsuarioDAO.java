@@ -66,6 +66,30 @@ public class UsuarioDAO {
     }
     
     
+    //Autenticacao usada no login
+    public Usuario Autenticacao(String login, String senha){
+        String sql = " SELECT * FROM usuario"
+                   + " WHERE senha = '"+ senha +"' AND login = '"+login+"'";
+        
+        Usuario retorno = null;
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+            
+            
+            while(rs.next()){
+                retorno = getUsuario(rs);
+            }
+            
+            state.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return retorno;
+    }
+    
     
     
     //Metodo buscar todos

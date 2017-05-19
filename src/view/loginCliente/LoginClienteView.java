@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import view.carrinho.CarrinhoView;
+import view.loginUsuario.AutenticacaoUserView;
 
 /**
  *
@@ -184,19 +185,28 @@ public class LoginClienteView extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == evt.VK_F2 ){
-		JOptionPane.showMessageDialog(this, "Tecla função ativada");
+		AutenticacaoUserView v = new AutenticacaoUserView();
+                v.setLocationRelativeTo(null);
+                v.setVisible(true);
+                this.setVisible(false);                
         }
     }//GEN-LAST:event_formKeyPressed
 
     private void jtfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeKeyPressed
         if (evt.getKeyCode() == evt.VK_F2 ){
-		JOptionPane.showMessageDialog(this, "Tecla função ativada");
+		AutenticacaoUserView v = new AutenticacaoUserView();
+                v.setLocationRelativeTo(null);
+                v.setVisible(true);
+                this.setVisible(false);
         }
     }//GEN-LAST:event_jtfNomeKeyPressed
 
     private void jtfCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCPFKeyPressed
         if (evt.getKeyCode() == evt.VK_F2 ){
-		JOptionPane.showMessageDialog(this, "Tecla função ativada");
+		AutenticacaoUserView v = new AutenticacaoUserView();
+                v.setLocationRelativeTo(null);
+                v.setVisible(true);
+                this.setVisible(false);
         }
     }//GEN-LAST:event_jtfCPFKeyPressed
 
