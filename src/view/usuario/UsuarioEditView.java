@@ -3,24 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.cliente;
+package view.usuario;
 
-import com.sun.glass.events.KeyEvent;
-import control.ClienteController;
+import control.UsuarioController;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import model.Cliente;
+import model.Supermercado;
+import model.Usuario;
 
 /**
  *
  * @author Leo
  */
-public class ClienteEditView extends javax.swing.JFrame {
+public class UsuarioEditView extends javax.swing.JFrame {
 
     /**
-     * Creates new form ClienteEditView
+     * Creates new form UsuarioEditView
      */
-    public ClienteEditView() {
+    public UsuarioEditView() {
         initComponents();
+        
+        List<Supermercado> supermercado = UsuarioController.getInstance().BuscarTodosMercados();
+        jcbMercado.setModel(new DefaultComboBoxModel(supermercado.toArray()));
+        jcbMercado.setSelectedIndex(-1);
     }
 
     /**
@@ -32,21 +38,23 @@ public class ClienteEditView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jtfNome = new javax.swing.JTextField();
-        jtfCpf = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jbSalvar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jtfID = new javax.swing.JTextField();
+        jtfNome = new javax.swing.JTextField();
+        jtfCpf = new javax.swing.JTextField();
+        jtfLogin = new javax.swing.JTextField();
+        jtfSenha = new javax.swing.JTextField();
+        jcbMercado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Nome");
-
-        jLabel2.setText("CPF");
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -73,21 +81,31 @@ public class ClienteEditView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbCancelar)
-                .addGap(15, 15, 15))
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalvar)
                     .addComponent(jbCancelar))
-                .addGap(21, 21, 21))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("ID");
+        jLabel1.setText("ID");
+
+        jLabel2.setText("Nome");
+
+        jLabel3.setText("Login");
+
+        jLabel4.setText("Senha");
+
+        jLabel5.setText("CPF");
+
+        jLabel6.setText("Supermercado");
 
         jtfID.setEnabled(false);
 
@@ -95,41 +113,55 @@ public class ClienteEditView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(103, Short.MAX_VALUE))
+                    .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jcbMercado, javax.swing.GroupLayout.Alignment.LEADING, 0, 138, Short.MAX_VALUE)
+                        .addComponent(jtfSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jtfLogin, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(106, 147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
+                    .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
                     .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
                     .addComponent(jtfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jcbMercado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -140,18 +172,17 @@ public class ClienteEditView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jbCancelarActionPerformed
 
-    //Botão salvar
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         try {
-            if(validation()){
+                if(validation()){
                 // Pega os dados informados nos campos cria um objeto produto e dispara o metodo de persitêcia na tela 
                
-                ClienteController.getInstance().persistir(getDados());
+                UsuarioController.getInstance().persistir(getDados());
 
                 JOptionPane.showMessageDialog(this, "Registro gravado com sucesso.");
                 //Fecha a tela 
                 dispose();
-            }
+                }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Ocorreu o seguinte erro na gravação dos dados: " + ex.getMessage());
             }
@@ -160,48 +191,32 @@ public class ClienteEditView extends javax.swing.JFrame {
     
     
     /**
-     * Seta os dados do objeto Cliente para os componentes da tela.
+     * Pega os dados dos componentes da View e joga para o objeto Usuario
      *
-     * @param cliente
+     * @return Usuario
      */
-    public void setDados(Cliente cliente) {
+    public Usuario getDados() {
         
-        jtfID.setText(cliente.getId().toString());
-        jtfNome.setText(cliente.getNome());
-        jtfCpf.setText(cliente.getCpf());
-        
-
-    }
-
-    
-    
-    
-    /**
-     * Pega os dados dos componentes da View e joga para o objeto Produto
-     *
-     * @return Produto
-     */
-    public Cliente getDados() {
-        
-        Cliente c = new Cliente();
+        Usuario u = new Usuario();
 
         /**
          * Verificacao para edição ou inserção jtfCodigo vazio = inserção
          * jtfCodigo com valor = edição
          */
         if (!jtfID.getText().equals("")) {
-            c.setId(Long.parseLong(jtfID.getText()));
+            u.setId(Long.parseLong(jtfID.getText()));
         }
 
-        c.setNome(jtfNome.getText());
-        c.setCpf(jtfCpf.getText());
+        u.setNome(jtfNome.getText());
+        u.setLogin(jtfLogin.getText());
+        u.setSenha(jtfSenha.getText());
+        u.setCpf(jtfCpf.getText());
+        u.setSupermercado((Supermercado) jcbMercado.getSelectedItem());
+        u.setNome(jtfNome.getText());
         
                   
-        return c;
+        return u;
     }
-    
-    
-    
     //Validação dos campos em obrigatórios
     private boolean validation(){
         if(jtfNome.getText().equals("")){
@@ -210,14 +225,48 @@ public class ClienteEditView extends javax.swing.JFrame {
           return false;
         }
         
-        if(jtfCpf.getText().equals("")){
-          JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório.");
-          jtfCpf.requestFocus();
+        if(jtfLogin.getText().equals("")){
+          JOptionPane.showMessageDialog(this, "Campo Login é obrigatório.");
+          jtfLogin.requestFocus();
+          return false;
+        }
+        
+        if(jtfSenha.getText().equals("")){
+          JOptionPane.showMessageDialog(this, "Campo Senha é obrigatório.");
+          jtfSenha.requestFocus();
           return false;
         }
         
         return true;
     }
+    
+    
+    
+    
+    
+/**
+     * Seta os dados do objeto Produto para os componentes da tela.
+     *
+     * @param usuario
+     */
+    public void setDados(Usuario usuario) {
+        
+        jtfID.setText(usuario.getId().toString());
+        jtfLogin.setText(usuario.getLogin());
+        jtfNome.setText(usuario.getNome());
+        jtfSenha.setText(usuario.getSenha());
+        jtfCpf.setText(String.valueOf(usuario.getCpf()));
+        jcbMercado.getModel().setSelectedItem(usuario.getSupermercado());
+        
+        
+        
+        //*********************************************************
+        //Era para carregar a imagem quando pegar os dados do banco
+        //ManipularImagem.exibiImagemLabel(produto.getFoto(), jlbImagem);
+        //*********************************************************
+
+    }
+    
     
     
     /**
@@ -237,20 +286,20 @@ public class ClienteEditView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClienteEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioEditView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClienteEditView().setVisible(true);
+                new UsuarioEditView().setVisible(true);
             }
         });
     }
@@ -259,11 +308,17 @@ public class ClienteEditView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbSalvar;
+    private javax.swing.JComboBox jcbMercado;
     private javax.swing.JTextField jtfCpf;
     private javax.swing.JTextField jtfID;
+    private javax.swing.JTextField jtfLogin;
     private javax.swing.JTextField jtfNome;
+    private javax.swing.JTextField jtfSenha;
     // End of variables declaration//GEN-END:variables
 }

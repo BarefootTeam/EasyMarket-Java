@@ -445,19 +445,19 @@ public class ProdutoEditView extends javax.swing.JFrame {
     }
     //Validação dos campos em obrigatórios
     private boolean validation(){
-        if(jtfNome.getText().endsWith("")){
+        if(jtfNome.getText().equals("")){
           JOptionPane.showMessageDialog(this, "Campo nome é obrigatório.");
           jtfNome.requestFocus();
           return false;
         }
         
-        if(jtfCod.getText().endsWith("")){
+        if(jtfCod.getText().equals("")){
           JOptionPane.showMessageDialog(this, "Campo COD é obrigatório.");
           jtfCod.requestFocus();
           return false;
         }
         
-        if(jtfPreco.getText().endsWith("")){
+        if(jtfPreco.getText().equals("")){
           JOptionPane.showMessageDialog(this, "Campo Preço é obrigatório.");
           jtfNome.requestFocus();
           return false;

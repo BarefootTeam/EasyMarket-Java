@@ -8,6 +8,7 @@ package view;
 import javax.swing.JFrame;
 import view.cliente.ClienteView;
 import view.produto.ProdutoView;
+import view.usuario.UsuarioView;
 
 /**
  *
@@ -35,6 +36,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmiCadastroDeProduto = new javax.swing.JMenuItem();
         jmiClientes = new javax.swing.JMenuItem();
+        jmiUsuarios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,13 +50,21 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         jMenu1.add(jmiCadastroDeProduto);
 
-        jmiClientes.setText("Clientes");
+        jmiClientes.setText("Cadastro de Clientes");
         jmiClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiClientesActionPerformed(evt);
             }
         });
         jMenu1.add(jmiClientes);
+
+        jmiUsuarios.setText("Cadastro de Usuários");
+        jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUsuariosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiUsuarios);
 
         MENU.add(jMenu1);
 
@@ -85,6 +95,12 @@ public class PrincipalView extends javax.swing.JFrame {
         v.setLocationRelativeTo(null);
         v.setVisible(true);
     }//GEN-LAST:event_jmiClientesActionPerformed
+
+    private void jmiUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuariosActionPerformed
+        UsuarioView v = new UsuarioView();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+    }//GEN-LAST:event_jmiUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,5 +145,6 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jmiCadastroDeProduto;
     private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiUsuarios;
     // End of variables declaration//GEN-END:variables
 }

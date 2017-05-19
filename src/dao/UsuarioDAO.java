@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import util.BDUtil;
@@ -167,4 +168,44 @@ public class UsuarioDAO {
         return total > 0;
     }
     
+    
+    /**
+     * Busca os usuarios de acordo com o indice passado 
+     *  { 0 - login, 1 - CPF, 2 - NOME }
+     * @param indice
+     * @param texto
+     * @return Lista de Produto
+     */
+    public List<Usuario> buscar(int indice, String texto) {
+
+        String sql = "SELECT * FROM usuario";
+
+        if (!texto.equals("")) {
+            if (indice == 0) { // LOGIN
+                sql += " WHERE upper(login) like '%" + texto.toUpperCase() + "%'";
+            } else if (indice == 1) { // CPF
+                sql += " WHERE cpf = '" + texto.toUpperCase() + "'";
+            } else if (indice == 2) { // NOME
+                sql += " WHERE upper(nome) like '%" + texto.toUpperCase() + "%'";
+            }
+        }
+
+        List<Usuario> retorno = new ArrayList<Usuario>();
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+
+            while (rs.next()) {
+                retorno.add(getUsuario(rs));
+            }
+
+            state.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+
+        return retorno;
+
+    }
 }
