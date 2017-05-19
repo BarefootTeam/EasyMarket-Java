@@ -68,6 +68,31 @@ public class ClienteDAO {
     }
     
     
+    //Metodo por CPF
+    public Cliente buscarCPF(String cpf){
+        String sql = " SELECT * FROM cliente"
+                   + " WHERE cpf = '"+ cpf+"'";
+        
+        Cliente retorno = null;
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+            
+            
+            while(rs.next()){
+                retorno = getCliente(rs);
+            }
+            
+            state.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return retorno;
+    }
+    
+    
     
     
     //Metodo buscar todos

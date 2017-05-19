@@ -45,6 +45,12 @@ public class ClienteController {
    
         return ClienteDAO.getInstance().buscarPorID(id);
     }
+    
+    
+    public Cliente buscarCPF(String cpf) {
+   
+        return ClienteDAO.getInstance().buscarCPF(cpf);
+    }
 
 
     public List<Cliente> BuscarTodos() {
