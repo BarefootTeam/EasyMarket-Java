@@ -72,6 +72,29 @@ public class ProdutoDAO {
     }
     
     
+    //Metodo por COD
+    public Produto buscarPorCOD(String cod){
+        String sql = " SELECT * FROM produto WHERE cod = '"+ cod+"'";
+        
+        Produto retorno = null;
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+            
+            while(rs.next()){
+                retorno = getProduto(rs);
+            }
+            
+            state.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return retorno;
+    }
+    
+    
     //Metodo por Nome
     public ArrayList<Produto> buscarPorNome(String nome){
         String sql = " SELECT * FROM produto WHERE nome like '%"+ nome+"%'";
@@ -94,6 +117,8 @@ public class ProdutoDAO {
         
         return retorno;
     }
+    
+    
     
     
 //Metodo buscar todos

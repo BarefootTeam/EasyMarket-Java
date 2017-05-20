@@ -49,6 +49,11 @@ public class ProdutoController {
    
         return ProdutoDAO.getInstance().buscarPorID(id);
     }
+    
+    public Produto buscarCOD(String cod) {
+   
+        return ProdutoDAO.getInstance().buscarPorCOD(cod);
+    }
 
 
     public List<Produto> BuscarTodos() {

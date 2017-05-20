@@ -5,8 +5,12 @@
  */
 package view.carrinho;
 
+import control.ProdutoController;
 import control.SessaoClienteController;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Produto;
 
 /**
  *
@@ -14,12 +18,18 @@ import java.awt.Color;
  */
 public class CarrinhoView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CarrinhoView
-     */
+    private int PrimeiroItem = 0;
+
     public CarrinhoView() {
         initComponents();
-        jlbNome.setText(SessaoClienteController.getInstance().getCliente().getNome());
+        //jlbNome.setText(SessaoClienteController.getInstance().getCliente().getNome());
+
+        //Enable componentes
+        jbtAdd.setEnabled(false);
+        jbtExcluir.setEnabled(false);
+        jbtFinalizar.setEnabled(false);
+        jbtBuscar.setEnabled(false);
+
     }
 
     /**
@@ -45,6 +55,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         jbtFinalizar = new javax.swing.JButton();
         jpStatus = new javax.swing.JPanel();
         jlbStatus = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +90,11 @@ public class CarrinhoView extends javax.swing.JFrame {
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jbtAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Create.png"))); // NOI18N
+        jbtAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAddActionPerformed(evt);
+            }
+        });
 
         jbtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Forbidden.png"))); // NOI18N
 
@@ -115,6 +131,7 @@ public class CarrinhoView extends javax.swing.JFrame {
 
         jpStatus.setBackground(new java.awt.Color(255, 102, 102));
 
+        jlbStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlbStatus.setText("Compra não iniciada");
 
         javax.swing.GroupLayout jpStatusLayout = new javax.swing.GroupLayout(jpStatus);
@@ -132,6 +149,8 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addGap(0, 11, Short.MAX_VALUE)
                 .addComponent(jlbStatus))
         );
+
+        jLabel3.setText("Insira o código");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,10 +171,15 @@ public class CarrinhoView extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jbtAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jbtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jbtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jbtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(145, 145, 145)
+                                    .addComponent(jLabel3))))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(35, 35, 35)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,7 +199,9 @@ public class CarrinhoView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -195,18 +221,79 @@ public class CarrinhoView extends javax.swing.JFrame {
 
     //Iniciando compra
     private void jbtIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIniciarActionPerformed
-        Color c = new Color(204,204,255);
+        //Alterando mudanças no JFrame
+        Color c = new Color(204, 204, 255);
         jpStatus.setBackground(c);
         jlbStatus.setText("Compra Iniciada");
+
+        //Desativando enable em componentes
+        jbtAdd.setEnabled(true);
+        jbtExcluir.setEnabled(true);
+        jbtFinalizar.setEnabled(true);
+        jbtBuscar.setEnabled(true);
+
+        jtfCodigo.requestFocus();
     }//GEN-LAST:event_jbtIniciarActionPerformed
 
     //Finalizando compra
     private void jbtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFinalizarActionPerformed
-        
-        Color c = new Color(255,102,102);
+
+        Color c = new Color(255, 102, 102);
         jpStatus.setBackground(c);
         jlbStatus.setText("Compra finalizada");
     }//GEN-LAST:event_jbtFinalizarActionPerformed
+
+    private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
+        Produto produto = new Produto();
+        produto = ProdutoController.getInstance().buscarCOD(jtfCodigo.getText());
+
+        // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        if (PrimeiroItem == 1) {
+            
+            ((DefaultTableModel) jtbProdutos.getModel()).addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
+            
+            jtfCodigo.setText("");
+            jtfCodigo.requestFocus();
+            
+
+        } else {
+
+        //Grade será criada pela primeira vez
+            // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
+            modelo.addColumn("(ID)");
+            modelo.addColumn("Código");
+            modelo.addColumn("Nome");
+            modelo.addColumn("Descricao");
+            modelo.addColumn("Valor");
+
+            modelo.addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
+
+        //Limpa a JTable (Grid)
+            //jtbProdutos.removeAll();
+            //Seta o modelo para a Grid 
+            jtbProdutos.setModel(modelo);
+
+            //Ajusta o tamanho da primeira coluna 
+            jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
+            jtbProdutos.getColumnModel().getColumn(2).setPreferredWidth(180);
+            jtbProdutos.getColumnModel().getColumn(3).setPreferredWidth(220);
+
+        //Ocutar coluna ID 
+            ///jtAluno.getColumnModel().getColumn(0).setMinWidth(0);
+            //jtAluno.getColumnModel().getColumn(0).setMaxWidth(0);
+            //jtAluno.getColumnModel().getColumn(0).setWidth(0);
+            jtfCodigo.setText("");
+            jtfCodigo.requestFocus();
+
+            if (PrimeiroItem == 0) {
+                PrimeiroItem = 1;
+            }
+
+        }
+    }//GEN-LAST:event_jbtAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +333,7 @@ public class CarrinhoView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtAdd;
