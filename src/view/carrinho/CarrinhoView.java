@@ -107,6 +107,11 @@ public class CarrinhoView extends javax.swing.JFrame {
         });
 
         jbtBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Search.png"))); // NOI18N
+        jbtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtBuscarActionPerformed(evt);
+            }
+        });
 
         jtbProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -340,6 +345,24 @@ public class CarrinhoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Produto removido com sucesso !");
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    //Consultando produto no modal
+    private void jbtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBuscarActionPerformed
+
+        //Verifica se algum codigo foi inserido
+        if (jtfCodigo.getText() == "") {
+
+            JOptionPane.showMessageDialog(this, "Nenhum código foi inserido.");
+        } else {
+            Produto produto = ProdutoController.getInstance().buscarCOD(jtfCodigo.getText());
+
+            ConsultaProdutoView v = new ConsultaProdutoView();
+            v.setLocationRelativeTo(null);
+            v.setDados(produto);
+            v.setVisible(true);
+
+        }
+    }//GEN-LAST:event_jbtBuscarActionPerformed
 
     private String CalculaTotal() {
         Double Orcamento = 0.0;
