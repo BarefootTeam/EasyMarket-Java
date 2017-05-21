@@ -9,6 +9,7 @@ import control.ProdutoController;
 import control.SessaoClienteController;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
@@ -56,6 +57,8 @@ public class CarrinhoView extends javax.swing.JFrame {
         jpStatus = new javax.swing.JPanel();
         jlbStatus = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jlbTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +100,11 @@ public class CarrinhoView extends javax.swing.JFrame {
         });
 
         jbtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Forbidden.png"))); // NOI18N
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         jbtBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Search.png"))); // NOI18N
 
@@ -152,6 +160,10 @@ public class CarrinhoView extends javax.swing.JFrame {
 
         jLabel3.setText("Insira o código");
 
+        jLabel4.setText("Valor Total:");
+
+        jlbTotal.setText("jLabel5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,8 +172,12 @@ public class CarrinhoView extends javax.swing.JFrame {
             .addComponent(jpStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtIniciar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbtFinalizar))
@@ -210,7 +226,9 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtIniciar)
-                    .addComponent(jbtFinalizar))
+                    .addComponent(jbtFinalizar)
+                    .addComponent(jLabel4)
+                    .addComponent(jlbTotal))
                 .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -241,59 +259,95 @@ public class CarrinhoView extends javax.swing.JFrame {
         Color c = new Color(255, 102, 102);
         jpStatus.setBackground(c);
         jlbStatus.setText("Compra finalizada");
+
+        //Desativando enable em componentes
+        jbtAdd.setEnabled(false);
+        jbtExcluir.setEnabled(false);
+        jbtFinalizar.setEnabled(false);
+        jbtBuscar.setEnabled(false);
     }//GEN-LAST:event_jbtFinalizarActionPerformed
 
+    //Adicionando produtos ao jTable
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
-        Produto produto = new Produto();
-        produto = ProdutoController.getInstance().buscarCOD(jtfCodigo.getText());
 
-        // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        if (PrimeiroItem == 1) {
-            
-            ((DefaultTableModel) jtbProdutos.getModel()).addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
-            
-            jtfCodigo.setText("");
+        if (jtfCodigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Insira um código antes de prosseguir com a operação.");
             jtfCodigo.requestFocus();
-            
-
         } else {
 
-        //Grade será criada pela primeira vez
+            Produto produto = new Produto();
+            produto = ProdutoController.getInstance().buscarCOD(jtfCodigo.getText());
+
             // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
-            modelo.addColumn("(ID)");
-            modelo.addColumn("Código");
-            modelo.addColumn("Nome");
-            modelo.addColumn("Descricao");
-            modelo.addColumn("Valor");
+            DefaultTableModel modelo = new DefaultTableModel();
 
-            modelo.addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
+            if (PrimeiroItem == 1) {
 
-        //Limpa a JTable (Grid)
-            //jtbProdutos.removeAll();
-            //Seta o modelo para a Grid 
-            jtbProdutos.setModel(modelo);
+                ((DefaultTableModel) jtbProdutos.getModel()).addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
 
-            //Ajusta o tamanho da primeira coluna 
-            jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
-            jtbProdutos.getColumnModel().getColumn(2).setPreferredWidth(180);
-            jtbProdutos.getColumnModel().getColumn(3).setPreferredWidth(220);
+                jtfCodigo.setText("");
+                jtfCodigo.requestFocus();
 
-        //Ocutar coluna ID 
-            ///jtAluno.getColumnModel().getColumn(0).setMinWidth(0);
-            //jtAluno.getColumnModel().getColumn(0).setMaxWidth(0);
-            //jtAluno.getColumnModel().getColumn(0).setWidth(0);
-            jtfCodigo.setText("");
-            jtfCodigo.requestFocus();
+            } else {
 
-            if (PrimeiroItem == 0) {
-                PrimeiroItem = 1;
+                //Grade será criada pela primeira vez
+                // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
+                modelo.addColumn("(ID)");
+                modelo.addColumn("Código");
+                modelo.addColumn("Nome");
+                modelo.addColumn("Descricao");
+                modelo.addColumn("Valor");
+
+                modelo.addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
+
+                //Limpa a JTable (Grid)
+                //jtbProdutos.removeAll();
+                //Seta o modelo para a Grid 
+                jtbProdutos.setModel(modelo);
+
+                //Ajusta o tamanho da primeira coluna 
+                jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(60);
+                jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
+                jtbProdutos.getColumnModel().getColumn(2).setPreferredWidth(180);
+                jtbProdutos.getColumnModel().getColumn(3).setPreferredWidth(220);
+
+                //Ocutar coluna ID 
+                ///jtAluno.getColumnModel().getColumn(0).setMinWidth(0);
+                //jtAluno.getColumnModel().getColumn(0).setMaxWidth(0);
+                //jtAluno.getColumnModel().getColumn(0).setWidth(0);
+                jtfCodigo.setText("");
+                jtfCodigo.requestFocus();
+
+                if (PrimeiroItem == 0) {
+                    PrimeiroItem = 1;
+                }
+
             }
 
+            jlbTotal.setText(CalculaTotal());
         }
     }//GEN-LAST:event_jbtAddActionPerformed
+
+    //Excluindo item
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        int linha = -2;
+        linha = jtbProdutos.getSelectedRow();
+
+        if (linha == -2) {
+            JOptionPane.showMessageDialog(this, "Selecione um produto.");
+        } else {
+            ((DefaultTableModel) jtbProdutos.getModel()).removeRow(jtbProdutos.getSelectedRow());
+            JOptionPane.showMessageDialog(this, "Produto removido com sucesso !");
+        }
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private String CalculaTotal() {
+        Double Orcamento = 0.0;
+        for (int i = 0; i < jtbProdutos.getRowCount(); i++) {
+            Orcamento += Double.parseDouble(jtbProdutos.getValueAt(i, 4).toString());
+        }
+        return Orcamento.toString();
+    }
 
     /**
      * @param args the command line arguments
@@ -334,6 +388,7 @@ public class CarrinhoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtAdd;
@@ -343,6 +398,7 @@ public class CarrinhoView extends javax.swing.JFrame {
     private javax.swing.JButton jbtIniciar;
     private javax.swing.JLabel jlbNome;
     private javax.swing.JLabel jlbStatus;
+    private javax.swing.JLabel jlbTotal;
     private javax.swing.JPanel jpStatus;
     private javax.swing.JTable jtbProdutos;
     private javax.swing.JTextField jtfCodigo;
