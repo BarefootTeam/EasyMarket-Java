@@ -5,13 +5,19 @@
  */
 package view.carrinho;
 
+import control.CarrinhoController;
 import control.ProdutoController;
 import control.SessaoClienteController;
 import java.awt.Color;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Carrinho;
 import model.Produto;
+import util.DateTimeUtil;
 
 /**
  *
@@ -23,7 +29,7 @@ public class CarrinhoView extends javax.swing.JFrame {
 
     public CarrinhoView() {
         initComponents();
-        //jlbNome.setText(SessaoClienteController.getInstance().getCliente().getNome());
+        jlbNome.setText(SessaoClienteController.getInstance().getCliente().getNome());
 
         //Enable componentes
         jbtAdd.setEnabled(false);
@@ -261,8 +267,8 @@ public class CarrinhoView extends javax.swing.JFrame {
     //Finalizando compra
     private void jbtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFinalizarActionPerformed
 
-        Color c = new Color(255, 102, 102);
-        jpStatus.setBackground(c);
+        Color cor = new Color(255, 102, 102);
+        jpStatus.setBackground(cor);
         jlbStatus.setText("Compra finalizada");
 
         //Desativando enable em componentes
@@ -270,8 +276,30 @@ public class CarrinhoView extends javax.swing.JFrame {
         jbtExcluir.setEnabled(false);
         jbtFinalizar.setEnabled(false);
         jbtBuscar.setEnabled(false);
+        
+        //Criação do carrinho no banco
+        
+        Carrinho c = new Carrinho();
+        c.setCliente(SessaoClienteController.getInstance().getCliente());
+        c.setData(getDataAtual());
+        c.setStatus(true);
+        
+        try {
+            CarrinhoController.getInstance().persistir(c);
+            JOptionPane.showMessageDialog(this, "Carrinho gravado com sucesso");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar o carrinho");
+        }
+        //JOptionPane.showMessageDialog(this, DateTimeUtil.getInstance().parseDate(getDataAtual()));
     }//GEN-LAST:event_jbtFinalizarActionPerformed
 
+    //Pegando data atual do sistema
+    public Date getDataAtual(){
+      Calendar calendar = new GregorianCalendar();
+      Date date = new Date();
+      calendar.setTime(date);
+      return calendar.getTime();
+    }
     //Adicionando produtos ao jTable
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
 

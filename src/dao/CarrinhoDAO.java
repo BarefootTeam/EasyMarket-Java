@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,6 +65,30 @@ public class CarrinhoDAO {
         
         return retorno;
     }
+    
+    
+    
+     //Metodo para buscar o ultimo
+    public Carrinho getLastCarrinho(){
+        String sql = " SELECT * FROM carrinho ORDER BY id DESC LIMIT 1";
+        
+        Carrinho retorno = null;
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+            
+            while(rs.next()){
+                retorno = getCarrinho(rs);
+            }
+            
+            state.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return retorno;
+    }
 
 //Metodo buscar todos
     public ArrayList<Carrinho> buscarTodos(){
@@ -98,23 +123,30 @@ public class CarrinhoDAO {
             sql = "UPDATE carrinho SET status=?, data=?, id_cliente = ? WHERE id = ?";
         }else{
             carrinho.setId(BDUtil.getProxID());
-            sql = "INSERT INTO carrinho(status,data,id_cliente) VALUES(?,?,?)";
+            sql = "INSERT INTO carrinho(status,data,id_cliente,id) VALUES(?,?,?,?)";
         }
         
         PreparedStatement state;
         try {
             state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
-            state.setBoolean(1, carrinho.getStatus());
-            state.setString(2, DateTimeUtil.getInstance().parseDate(carrinho.getData()));
+            if(carrinho.getStatus() == true){
+              state.setBoolean(1, true);
+            }else{
+              state.setBoolean(1, false);
+            }
+            //state.setBoolean(1, carrinho.getStatus());
+            //state.setString(2, DateTimeUtil.getInstance().parseDate(carrinho.getData()).substring(0, 10));
+            //state.setString(2, "2017-05-22");
             state.setLong(3, carrinho.getId());
             state.setLong(4, carrinho.getCliente().getId());
+            state.setString(2, DateTimeUtil.getInstance().parseDateToStrSQL(carrinho.getData()));
             
             state.executeUpdate();
             
             state.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu erro na persistencia");
+            JOptionPane.showMessageDialog(null, "Ocorreu erro na persistencia" + e.getMessage());
             return false;
         }
         
