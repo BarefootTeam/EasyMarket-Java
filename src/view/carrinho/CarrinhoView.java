@@ -277,7 +277,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         jbtFinalizar.setEnabled(false);
         jbtBuscar.setEnabled(false);
         
-        //Criação do carrinho no banco
+        //Persistindo carrinho no banco
         
         Carrinho c = new Carrinho();
         c.setCliente(SessaoClienteController.getInstance().getCliente());
@@ -290,7 +290,6 @@ public class CarrinhoView extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao salvar o carrinho");
         }
-        //JOptionPane.showMessageDialog(this, DateTimeUtil.getInstance().parseDate(getDataAtual()));
     }//GEN-LAST:event_jbtFinalizarActionPerformed
 
     //Pegando data atual do sistema

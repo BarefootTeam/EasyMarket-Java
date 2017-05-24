@@ -113,7 +113,7 @@ public class CarrinhoDAO {
     }
 
 /*Metodo de persistencia
-* @param Produto
+* @param Carrinho
 * @return boolean
 */
     public boolean persistir(Carrinho carrinho){
@@ -130,17 +130,11 @@ public class CarrinhoDAO {
         try {
             state = ConexaoPostGree.getConexao().prepareStatement(sql);
             
-            if(carrinho.getStatus() == true){
-              state.setBoolean(1, true);
-            }else{
-              state.setBoolean(1, false);
-            }
-            //state.setBoolean(1, carrinho.getStatus());
-            //state.setString(2, DateTimeUtil.getInstance().parseDate(carrinho.getData()).substring(0, 10));
-            //state.setString(2, "2017-05-22");
-            state.setLong(3, carrinho.getId());
-            state.setLong(4, carrinho.getCliente().getId());
-            state.setString(2, DateTimeUtil.getInstance().parseDateToStrSQL(carrinho.getData()));
+            state.setBoolean(1, carrinho.getStatus());
+            state.setDate(2, carrinho.getData() == null ? null
+                    : new java.sql.Date(carrinho.getData().getTime()));
+            state.setLong(3, carrinho.getCliente().getId());
+            state.setLong(4, carrinho.getId());
             
             state.executeUpdate();
             
