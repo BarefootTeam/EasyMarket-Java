@@ -74,7 +74,7 @@ public class ProdutoDAO {
     
     //Metodo por COD
     public Produto buscarPorCOD(String cod){
-        String sql = " SELECT * FROM produto WHERE cod = '"+ cod+"'";
+        String sql = " SELECT * FROM produto WHERE upper(cod) = '"+ cod.toUpperCase()+"'";
         
         Produto retorno = null;
         try {
@@ -97,7 +97,7 @@ public class ProdutoDAO {
     
     //Metodo por Nome
     public ArrayList<Produto> buscarPorNome(String nome){
-        String sql = " SELECT * FROM produto WHERE nome like '%"+ nome+"%'";
+        String sql = " SELECT * FROM produto WHERE upper(nome) like '%"+ nome.toUpperCase()+"%'";
         
         ArrayList<Produto> retorno = new ArrayList<Produto>();
        

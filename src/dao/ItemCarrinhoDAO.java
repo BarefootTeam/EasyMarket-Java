@@ -109,7 +109,7 @@ public class ItemCarrinhoDAO {
             sql = "UPDATE itens_carrinho SET id_produto=?,id_carrinho=?,valor=?,quantidade=? WHERE id = ?";
         }else{
             itemCarrinho.setId(BDUtil.getProxID());
-            sql = "INSERT INTO cliente(id_produto,id_carrinho,valor,quantidade,id) VALUES(?,?,?,?,?)";
+            sql = "INSERT INTO itens_carrinho(id_produto,id_carrinho,valor,quantidade,id) VALUES(?,?,?,?,?)";
         }
         
         PreparedStatement state;
@@ -120,12 +120,13 @@ public class ItemCarrinhoDAO {
             state.setLong(2, itemCarrinho.getCarrinho().getId());
             state.setFloat(3, itemCarrinho.getValor());
             state.setInt(4, itemCarrinho.getQuantidade());
+            state.setLong(5, itemCarrinho.getId());
             
             state.executeUpdate();
             
             state.close();            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu erro na persistencia");
+            JOptionPane.showMessageDialog(null, "Ocorreu erro na persistencia" + e.getMessage());
             return false;
         }
         

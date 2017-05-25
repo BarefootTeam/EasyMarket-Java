@@ -6,6 +6,7 @@
 package view.carrinho;
 
 import control.CarrinhoController;
+import control.ItemCarrinhoController;
 import control.ProdutoController;
 import control.SessaoClienteController;
 import java.awt.Color;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Carrinho;
+import model.ItemCarrinho;
 import model.Produto;
 import util.DateTimeUtil;
 
@@ -267,38 +269,93 @@ public class CarrinhoView extends javax.swing.JFrame {
     //Finalizando compra
     private void jbtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFinalizarActionPerformed
 
-        Color cor = new Color(255, 102, 102);
-        jpStatus.setBackground(cor);
-        jlbStatus.setText("Compra finalizada");
+        int l = jtbProdutos.getRowCount();
+        //Verificando se existe itens na grade de produto.
+        if (l > 0) {
 
-        //Desativando enable em componentes
-        jbtAdd.setEnabled(false);
-        jbtExcluir.setEnabled(false);
-        jbtFinalizar.setEnabled(false);
-        jbtBuscar.setEnabled(false);
-        
-        //Persistindo carrinho no banco
-        
-        Carrinho c = new Carrinho();
-        c.setCliente(SessaoClienteController.getInstance().getCliente());
-        c.setData(getDataAtual());
-        c.setStatus(true);
-        
-        try {
-            CarrinhoController.getInstance().persistir(c);
-            JOptionPane.showMessageDialog(this, "Carrinho gravado com sucesso");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao salvar o carrinho");
+            if (JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar sua compra ?", "Opção", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                //Alterando componentes visuais 
+                Color cor = new Color(255, 102, 102);
+                jpStatus.setBackground(cor);
+                jlbStatus.setText("Compra finalizada");
+
+                //Desativando enable em componentes
+                jbtAdd.setEnabled(false);
+                jbtExcluir.setEnabled(false);
+                jbtFinalizar.setEnabled(false);
+                jbtBuscar.setEnabled(false);
+
+                //Persistindo carrinho no banco
+                Carrinho c = new Carrinho();
+                c.setCliente(SessaoClienteController.getInstance().getCliente());
+                c.setData(getDataAtual());
+                c.setStatus(true);
+
+                try {
+                    CarrinhoController.getInstance().persistir(c);
+                    //JOptionPane.showMessageDialog(this, "Carrinho gravado com sucesso");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao salvar o carrinho");
+                }
+
+                //Persistindo os itens da compra
+                try {
+                    Carrinho ultimo_carrinho = CarrinhoController.getInstance().getLastCarrinho();
+                    Produto p_item = new Produto();
+                    Long cod;
+                    for (int i = 0; i < jtbProdutos.getRowCount(); i++) {
+                        //Capturando codigo do produto
+                        cod = Long.parseLong(jtbProdutos.getValueAt(i, 0).toString());
+
+                        p_item = ProdutoController.getInstance().buscarID(cod);
+
+                        //Setando dados no objeto item
+                        ItemCarrinho item = new ItemCarrinho();
+
+                        item.setCarrinho(ultimo_carrinho);
+                        item.setProduto(p_item);
+                        item.setQuantidade(1);
+                        item.setValor(p_item.getPrecoCusto());
+
+                        //Persistindo objeto
+                        ItemCarrinhoController.getInstance().persistir(item);
+                    }
+                    //Fim do loop que persiste os itens
+                    
+                    
+                    //Removendo todos os itens da tabela
+                    ((DefaultTableModel) jtbProdutos.getModel()).removeRow(0);
+                    for (int i = 0; i < jtbProdutos.getRowCount(); i++) {
+                     ((DefaultTableModel) jtbProdutos.getModel()).removeRow(i);
+                     
+                     
+                    }
+                    
+                   // if(jtbProdutos.getRowCount() == 0){
+                    //    ((DefaultTableModel) jtbProdutos.getModel()).removeRow(0);
+                    //}
+                    
+                    
+                    
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Erro");
+                }
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum produto adicionado");
         }
     }//GEN-LAST:event_jbtFinalizarActionPerformed
 
     //Pegando data atual do sistema
-    public Date getDataAtual(){
-      Calendar calendar = new GregorianCalendar();
-      Date date = new Date();
-      calendar.setTime(date);
-      return calendar.getTime();
+    public Date getDataAtual() {
+        Calendar calendar = new GregorianCalendar();
+        Date date = new Date();
+        calendar.setTime(date);
+        return calendar.getTime();
     }
+
     //Adicionando produtos ao jTable
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
 
