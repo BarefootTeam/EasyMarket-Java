@@ -6,6 +6,7 @@
 package control;
 
 import dao.ItemCarrinhoDAO;
+import java.util.List;
 import model.ItemCarrinho;
 
 /**
@@ -25,5 +26,9 @@ public class ItemCarrinhoController {
     
     public void persistir(ItemCarrinho item) {
         ItemCarrinhoDAO.getInstance().persistir(item);
+    }
+    
+    public List<ItemCarrinho> BuscaPorCarrinho(Long id_carrinho) {
+        return ItemCarrinhoDAO.getInstance().buscaPorCarrinho(id_carrinho);
     }
 }

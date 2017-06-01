@@ -175,8 +175,6 @@ public class CarrinhoView extends javax.swing.JFrame {
 
         jLabel4.setText("Valor Total:");
 
-        jlbTotal.setText("jLabel5");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,7 +239,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                     .addComponent(jbtIniciar)
                     .addComponent(jbtFinalizar)
                     .addComponent(jLabel4)
-                    .addComponent(jlbTotal))
+                    .addComponent(jlbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -278,7 +276,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                 Color cor = new Color(255, 102, 102);
                 jpStatus.setBackground(cor);
                 jlbStatus.setText("Compra finalizada");
-
+                jlbTotal.setText("0");
                 //Desativando enable em componentes
                 jbtAdd.setEnabled(false);
                 jbtExcluir.setEnabled(false);
@@ -321,22 +319,14 @@ public class CarrinhoView extends javax.swing.JFrame {
                         ItemCarrinhoController.getInstance().persistir(item);
                     }
                     //Fim do loop que persiste os itens
-                    
-                    
+
                     //Removendo todos os itens da tabela
                     ((DefaultTableModel) jtbProdutos.getModel()).removeRow(0);
                     for (int i = 0; i < jtbProdutos.getRowCount(); i++) {
-                     ((DefaultTableModel) jtbProdutos.getModel()).removeRow(i);
-                     
-                     
+                        ((DefaultTableModel) jtbProdutos.getModel()).removeRow(i);
+
                     }
-                    
-                   // if(jtbProdutos.getRowCount() == 0){
-                    //    ((DefaultTableModel) jtbProdutos.getModel()).removeRow(0);
-                    //}
-                    
-                    
-                    
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Erro");
                 }

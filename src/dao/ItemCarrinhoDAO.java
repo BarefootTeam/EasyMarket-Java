@@ -95,6 +95,31 @@ public class ItemCarrinhoDAO {
     }
     
     
+    //Busca por carrinho
+    //Metodo buscar todos
+    public ArrayList<ItemCarrinho> buscaPorCarrinho(Long id_carrinho){
+        String sql = "SELECT * FROM itens_carrinho WHERE id_carrinho = "+id_carrinho;
+        
+        ArrayList<ItemCarrinho> retorno = new ArrayList<ItemCarrinho>();
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+            
+            
+            while(rs.next()){
+                retorno.add(getItemCarrinho(rs));
+            }
+            
+            state.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+        
+        return retorno;
+    }
+    
+    
        
     
     

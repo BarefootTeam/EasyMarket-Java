@@ -98,7 +98,7 @@
                   <Component id="jbtIniciar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtFinalizar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlbTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlbTotal" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -281,9 +281,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlbTotal">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel5"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

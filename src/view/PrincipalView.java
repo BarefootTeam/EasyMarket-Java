@@ -6,6 +6,7 @@
 package view;
 
 import javax.swing.JFrame;
+import view.carrinho.ListCarrinhoView;
 import view.cliente.ClienteView;
 import view.produto.ProdutoView;
 import view.usuario.UsuarioView;
@@ -37,6 +38,8 @@ public class PrincipalView extends javax.swing.JFrame {
         jmiCadastroDeProduto = new javax.swing.JMenuItem();
         jmiClientes = new javax.swing.JMenuItem();
         jmiUsuarios = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jmiCompras = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +70,18 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenu1.add(jmiUsuarios);
 
         MENU.add(jMenu1);
+
+        jMenu2.setText("Consultar");
+
+        jmiCompras.setText("Compras");
+        jmiCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiComprasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiCompras);
+
+        MENU.add(jMenu2);
 
         setJMenuBar(MENU);
 
@@ -101,6 +116,12 @@ public class PrincipalView extends javax.swing.JFrame {
         v.setLocationRelativeTo(null);
         v.setVisible(true);
     }//GEN-LAST:event_jmiUsuariosActionPerformed
+
+    private void jmiComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiComprasActionPerformed
+        ListCarrinhoView v = new ListCarrinhoView();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+    }//GEN-LAST:event_jmiComprasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,8 +164,10 @@ public class PrincipalView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MENU;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jmiCadastroDeProduto;
     private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiCompras;
     private javax.swing.JMenuItem jmiUsuarios;
     // End of variables declaration//GEN-END:variables
 }

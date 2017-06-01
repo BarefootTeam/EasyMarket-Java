@@ -45,6 +45,7 @@ public class LoginClienteView extends javax.swing.JFrame {
         jbtLogar = new javax.swing.JButton();
         jbtCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jbtConvidado = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -92,33 +93,45 @@ public class LoginClienteView extends javax.swing.JFrame {
 
         jLabel5.setText("Entre com seus dados para iniciar a compra");
 
+        jbtConvidado.setText("Logar como convidado");
+        jbtConvidado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConvidadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addComponent(jbtLogar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbtCancelar)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(167, Short.MAX_VALUE)
+                        .addComponent(jbtLogar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtCancelar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(30, 30, 30)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel1)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbtConvidado))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,8 +147,9 @@ public class LoginClienteView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(jbtConvidado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtLogar)
                     .addComponent(jbtCancelar))
@@ -160,16 +174,16 @@ public class LoginClienteView extends javax.swing.JFrame {
             if (c == null) {//Realiza novo cadastro e loga o usuario
 
                 try {
-                        // Pega os dados informados nos campos cria um objeto produto e dispara o metodo de persitêcia na tela 
+                    // Pega os dados informados nos campos cria um objeto produto e dispara o metodo de persitêcia na tela 
 
-                        ClienteController.getInstance().persistir(getDados());
-                        SessaoClienteController.getInstance().setCliente(getDados());
+                    ClienteController.getInstance().persistir(getDados());
+                    SessaoClienteController.getInstance().setCliente(getDados());
 
-                        JOptionPane.showMessageDialog(this, "Olá, bem vindo ao Easy Market");
-                        CarrinhoView v = new CarrinhoView();
-                        v.setLocationRelativeTo(null);
-                        v.setVisible(true);
-                        this.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "Olá, bem vindo ao Easy Market");
+                    CarrinhoView v = new CarrinhoView();
+                    v.setLocationRelativeTo(null);
+                    v.setVisible(true);
+                    this.setVisible(false);
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Ocorreu o seguinte erro na gravação dos dados: " + ex.getMessage());
@@ -219,6 +233,23 @@ public class LoginClienteView extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_jtfCPFKeyPressed
+
+    private void jbtConvidadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConvidadoActionPerformed
+        try {
+            Cliente c = new Cliente();
+            c = ClienteController.getInstance().buscarCPF("11111111111");
+
+            SessaoClienteController.getInstance().setCliente(c);
+
+            CarrinhoView v = new CarrinhoView();
+            v.setLocationRelativeTo(null);
+            v.setVisible(true);
+            this.setVisible(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro no processo");
+        }
+
+    }//GEN-LAST:event_jbtConvidadoActionPerformed
 
     /**
      * Pega os dados dos componentes da View e joga para o objeto Cliente
@@ -296,6 +327,7 @@ public class LoginClienteView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton jbtCancelar;
+    private javax.swing.JButton jbtConvidado;
     private javax.swing.JButton jbtLogar;
     private javax.swing.JTextField jtfCPF;
     private javax.swing.JTextField jtfNome;
