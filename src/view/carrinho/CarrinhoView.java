@@ -278,6 +278,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                 jpStatus.setBackground(cor);
                 jlbStatus.setText("Compra finalizada");
                 jlbTotal.setText("0");
+                jtfCodigo.setText("");
                 //Desativando enable em componentes
                 jbtAdd.setEnabled(false);
                 jbtExcluir.setEnabled(false);
