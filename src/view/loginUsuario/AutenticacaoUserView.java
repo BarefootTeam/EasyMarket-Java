@@ -63,6 +63,11 @@ public class AutenticacaoUserView extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Abort.png"))); // NOI18N
         jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jbtRetornar.setText("Retornar");
         jbtRetornar.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +180,10 @@ public class AutenticacaoUserView extends javax.swing.JFrame {
        // }
 
     }//GEN-LAST:event_jbtEntrarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.exit(EXIT_ON_CLOSE);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     //Validação dos campos em obrigatórios
     private boolean validation(String senha) {

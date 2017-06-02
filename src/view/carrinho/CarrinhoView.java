@@ -235,11 +235,12 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtIniciar)
-                    .addComponent(jbtFinalizar)
-                    .addComponent(jLabel4)
-                    .addComponent(jlbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbtIniciar)
+                        .addComponent(jbtFinalizar)
+                        .addComponent(jLabel4)))
                 .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -356,54 +357,58 @@ public class CarrinhoView extends javax.swing.JFrame {
 
             Produto produto = new Produto();
             produto = ProdutoController.getInstance().buscarCOD(jtfCodigo.getText());
-
-            // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
-            DefaultTableModel modelo = new DefaultTableModel();
-
-            if (PrimeiroItem == 1) {
-
-                ((DefaultTableModel) jtbProdutos.getModel()).addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
-
-                jtfCodigo.setText("");
-                jtfCodigo.requestFocus();
-
+            
+            if(produto == null) {
+                JOptionPane.showMessageDialog(this, "Produto não cadastrado.");
             } else {
-
-                //Grade será criada pela primeira vez
                 // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
-                modelo.addColumn("(ID)");
-                modelo.addColumn("Código");
-                modelo.addColumn("Nome");
-                modelo.addColumn("Descricao");
-                modelo.addColumn("Valor");
+                DefaultTableModel modelo = new DefaultTableModel();
 
-                modelo.addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
+                if (PrimeiroItem == 1) {
 
-                //Limpa a JTable (Grid)
-                //jtbProdutos.removeAll();
-                //Seta o modelo para a Grid 
-                jtbProdutos.setModel(modelo);
+                    ((DefaultTableModel) jtbProdutos.getModel()).addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
 
-                //Ajusta o tamanho da primeira coluna 
-                jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(60);
-                jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
-                jtbProdutos.getColumnModel().getColumn(2).setPreferredWidth(180);
-                jtbProdutos.getColumnModel().getColumn(3).setPreferredWidth(220);
+                    jtfCodigo.setText("");
+                    jtfCodigo.requestFocus();
 
-                //Ocutar coluna ID 
-                ///jtAluno.getColumnModel().getColumn(0).setMinWidth(0);
-                //jtAluno.getColumnModel().getColumn(0).setMaxWidth(0);
-                //jtAluno.getColumnModel().getColumn(0).setWidth(0);
-                jtfCodigo.setText("");
-                jtfCodigo.requestFocus();
+                } else {
 
-                if (PrimeiroItem == 0) {
-                    PrimeiroItem = 1;
+                    //Grade será criada pela primeira vez
+                    // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
+                    modelo.addColumn("(ID)");
+                    modelo.addColumn("Código");
+                    modelo.addColumn("Nome");
+                    modelo.addColumn("Descricao");
+                    modelo.addColumn("Valor");
+
+                    modelo.addRow(new Object[]{produto.getId(), produto.getCod(), produto.getNome(), produto.getDescricao(), produto.getPrecoCusto()});
+
+                    //Limpa a JTable (Grid)
+                    //jtbProdutos.removeAll();
+                    //Seta o modelo para a Grid 
+                    jtbProdutos.setModel(modelo);
+
+                    //Ajusta o tamanho da primeira coluna 
+                    jtbProdutos.getColumnModel().getColumn(0).setPreferredWidth(60);
+                    jtbProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
+                    jtbProdutos.getColumnModel().getColumn(2).setPreferredWidth(180);
+                    jtbProdutos.getColumnModel().getColumn(3).setPreferredWidth(220);
+
+                    //Ocutar coluna ID 
+                    ///jtAluno.getColumnModel().getColumn(0).setMinWidth(0);
+                    //jtAluno.getColumnModel().getColumn(0).setMaxWidth(0);
+                    //jtAluno.getColumnModel().getColumn(0).setWidth(0);
+                    jtfCodigo.setText("");
+                    jtfCodigo.requestFocus();
+
+                    if (PrimeiroItem == 0) {
+                        PrimeiroItem = 1;
+                    }
+
                 }
 
+                jlbTotal.setText(CalculaTotal());
             }
-
-            jlbTotal.setText(CalculaTotal());
         }
     }//GEN-LAST:event_jbtAddActionPerformed
 
@@ -425,16 +430,17 @@ public class CarrinhoView extends javax.swing.JFrame {
 
         //Verifica se algum codigo foi inserido
         if (jtfCodigo.getText() == "") {
-
             JOptionPane.showMessageDialog(this, "Nenhum código foi inserido.");
         } else {
             Produto produto = ProdutoController.getInstance().buscarCOD(jtfCodigo.getText());
-
-            ConsultaProdutoView v = new ConsultaProdutoView();
-            v.setLocationRelativeTo(null);
-            v.setDados(produto);
-            v.setVisible(true);
-
+            if ( produto == null ) {
+                JOptionPane.showMessageDialog(this, "Produto não cadastrado.");
+            } else {
+                ConsultaProdutoView v = new ConsultaProdutoView();
+                v.setLocationRelativeTo(null);
+                v.setDados(produto);
+                v.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jbtBuscarActionPerformed
 

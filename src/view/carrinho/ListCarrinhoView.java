@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Carrinho;
 import model.Cliente;
+import util.DateTimeUtil;
 
 /**
  *
@@ -44,7 +45,7 @@ public class ListCarrinhoView extends javax.swing.JFrame {
         jtCompras = new javax.swing.JTable();
         jbtDetalhes = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
@@ -186,8 +187,8 @@ public class ListCarrinhoView extends javax.swing.JFrame {
         modelo.addColumn("Cliente");
 
         for (Carrinho c : carrinho) {
-            // Seta os valores do objeto para o JTableModel 
-            modelo.addRow(new Object[]{c.getId(), c.getData(), c.getCliente().getNome(),});
+            // Seta os valores do objeto para o JTableModel
+            modelo.addRow(new Object[]{c.getId(), DateTimeUtil.getInstance().parseDate(c.getData()), c.getCliente().getNome(),});
         }
         //Limpa a JTable (Grid)
         jtCompras.removeAll();
