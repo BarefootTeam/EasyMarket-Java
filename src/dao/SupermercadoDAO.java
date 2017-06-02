@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Supermercado;
 import util.BDUtil;
@@ -159,5 +160,47 @@ public class SupermercadoDAO {
         }
         
         return total > 0;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Busca os mercados de acordo com o indice passado 
+     *  { 0 - NOME, 1 - CNPJ }
+     * @param indice
+     * @param texto
+     * @return Lista de Mercados
+     */
+    public List<Supermercado> buscar(int indice, String texto) {
+
+        String sql = "SELECT * FROM supermercado";
+
+        if (!texto.equals("")) {
+            if (indice == 0) { // COD
+                sql += " WHERE upper(nome) like '%" + texto.toUpperCase() + "%'";
+            } else if (indice == 1) { // NOME
+                sql += " WHERE upper(cnpj) like '%" + texto.toUpperCase() + "%'";
+            }
+        }
+
+        List<Supermercado> retorno = new ArrayList<Supermercado>();
+        try {
+            Statement state = ConexaoPostGree.getConexao().createStatement();
+            ResultSet rs = state.executeQuery(sql);
+
+            while (rs.next()) {
+                retorno.add(getSuperMercado(rs));
+            }
+
+            state.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+
+        return retorno;
+
     }
 }

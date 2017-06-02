@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import view.carrinho.ListCarrinhoView;
 import view.cliente.ClienteView;
 import view.produto.ProdutoView;
+import view.supermercado.SupermercadoView;
 import view.usuario.UsuarioView;
 
 /**
@@ -38,6 +39,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jmiCadastroDeProduto = new javax.swing.JMenuItem();
         jmiClientes = new javax.swing.JMenuItem();
         jmiUsuarios = new javax.swing.JMenuItem();
+        jmiSupermercado = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiCompras = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -70,6 +72,14 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiUsuarios);
+
+        jmiSupermercado.setText("Supermercado");
+        jmiSupermercado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSupermercadoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiSupermercado);
 
         MENU.add(jMenu1);
 
@@ -141,6 +151,12 @@ public class PrincipalView extends javax.swing.JFrame {
         System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jmiSupermercadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSupermercadoActionPerformed
+        SupermercadoView v = new SupermercadoView();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+    }//GEN-LAST:event_jmiSupermercadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,6 +204,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCadastroDeProduto;
     private javax.swing.JMenuItem jmiClientes;
     private javax.swing.JMenuItem jmiCompras;
+    private javax.swing.JMenuItem jmiSupermercado;
     private javax.swing.JMenuItem jmiUsuarios;
     // End of variables declaration//GEN-END:variables
 }
