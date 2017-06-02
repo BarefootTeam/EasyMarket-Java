@@ -45,7 +45,7 @@ public class SupermercadoView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jbOK = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jtDados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
