@@ -211,27 +211,18 @@ public class DetalhesCarrinhoView extends javax.swing.JFrame {
         // Cria um defaultTableModel para ser usado na JTable com os campos que serão exibidos na tela
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Produto");
-        modelo.addColumn("Quantidade");
         modelo.addColumn("Valor");
 
         for (ItemCarrinho i : item) {
             // Seta os valores do objeto para o JTableModel 
-            modelo.addRow(new Object[]{i.getProduto().getNome(),i.getQuantidade(),i.getValor()});
+            modelo.addRow(new Object[]{i.getProduto().getNome(),i.getValor()});
         }
+        
         //Limpa a JTable (Grid)
         jtProdutos.removeAll();
         //Seta o modelo para a Grid 
         jtProdutos.setModel(modelo);
 
-        //Ajusta o tamanho da primeira coluna 
-        jtProdutos.getColumnModel().getColumn(0).setPreferredWidth(180);
-        jtProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
-        jtProdutos.getColumnModel().getColumn(2).setPreferredWidth(60);
-
-        //Ocutar coluna ID 
-        ///jtAluno.getColumnModel().getColumn(0).setMinWidth(0);
-        //jtAluno.getColumnModel().getColumn(0).setMaxWidth(0);
-        //jtAluno.getColumnModel().getColumn(0).setWidth(0);
         jlbValor.setText(CalculaTotal());
     }
     
@@ -239,7 +230,7 @@ public class DetalhesCarrinhoView extends javax.swing.JFrame {
     private String CalculaTotal() {
         Double Orcamento = 0.0;
         for (int i = 0; i < jtProdutos.getRowCount(); i++) {
-            Orcamento += Double.parseDouble(jtProdutos.getValueAt(i, 2).toString());
+            Orcamento += Double.parseDouble(jtProdutos.getValueAt(i, 1).toString());
         }
         return Orcamento.toString();
     }

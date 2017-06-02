@@ -40,12 +40,14 @@ public class PrincipalView extends javax.swing.JFrame {
         jmiUsuarios = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiCompras = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Arquivos");
+        jMenu1.setText("Cadastros");
 
-        jmiCadastroDeProduto.setText("Cadastro de Produtos");
+        jmiCadastroDeProduto.setText("Produtos");
         jmiCadastroDeProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiCadastroDeProdutoActionPerformed(evt);
@@ -53,7 +55,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         jMenu1.add(jmiCadastroDeProduto);
 
-        jmiClientes.setText("Cadastro de Clientes");
+        jmiClientes.setText("Clientes");
         jmiClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiClientesActionPerformed(evt);
@@ -61,7 +63,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         jMenu1.add(jmiClientes);
 
-        jmiUsuarios.setText("Cadastro de Usuários");
+        jmiUsuarios.setText("Usuários");
         jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiUsuariosActionPerformed(evt);
@@ -82,6 +84,18 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenu2.add(jmiCompras);
 
         MENU.add(jMenu2);
+
+        jMenu3.setText("Ajuda");
+
+        jMenuItem1.setText("Sair");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        MENU.add(jMenu3);
 
         setJMenuBar(MENU);
 
@@ -122,6 +136,10 @@ public class PrincipalView extends javax.swing.JFrame {
         v.setLocationRelativeTo(null);
         v.setVisible(true);
     }//GEN-LAST:event_jmiComprasActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(EXIT_ON_CLOSE);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +183,8 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuBar MENU;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jmiCadastroDeProduto;
     private javax.swing.JMenuItem jmiClientes;
     private javax.swing.JMenuItem jmiCompras;

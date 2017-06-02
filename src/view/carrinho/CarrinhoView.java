@@ -322,10 +322,8 @@ public class CarrinhoView extends javax.swing.JFrame {
                     //Fim do loop que persiste os itens
 
                     //Removendo todos os itens da tabela
-                    ((DefaultTableModel) jtbProdutos.getModel()).removeRow(0);
-                    for (int i = 0; i < jtbProdutos.getRowCount(); i++) {
-                        ((DefaultTableModel) jtbProdutos.getModel()).removeRow(i);
-
+                    while (jtbProdutos.getModel().getRowCount() > 0) {  
+                        ((DefaultTableModel) jtbProdutos.getModel()).removeRow(0);  
                     }
 
                 } catch (Exception e) {
@@ -421,6 +419,7 @@ public class CarrinhoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecione um produto.");
         } else {
             ((DefaultTableModel) jtbProdutos.getModel()).removeRow(jtbProdutos.getSelectedRow());
+            jlbTotal.setText(CalculaTotal());
             JOptionPane.showMessageDialog(this, "Produto removido com sucesso !");
         }
     }//GEN-LAST:event_jbtExcluirActionPerformed
