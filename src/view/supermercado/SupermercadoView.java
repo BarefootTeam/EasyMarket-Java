@@ -6,6 +6,7 @@
 package view.supermercado;
 
 import control.SupermercadoController;
+import java.awt.Dialog;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -93,7 +94,8 @@ public class SupermercadoView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Cadastro de Supermercados");
 
-        jbOK.setText("Buscar");
+        jbOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/Find.png"))); // NOI18N
+        jbOK.setLabel("");
         jbOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbOKActionPerformed(evt);
@@ -120,9 +122,9 @@ public class SupermercadoView extends javax.swing.JFrame {
                         .addComponent(jcbOpcao2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jtBusca2, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbOK)))
-                .addContainerGap())
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,8 +165,10 @@ public class SupermercadoView extends javax.swing.JFrame {
 
     private void jbNovo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovo2ActionPerformed
         MercadoEditView v = new MercadoEditView();
+        v.setModal(true);
         v.setLocationRelativeTo(null);
         v.setVisible(true);
+        jbOK.doClick();
     }//GEN-LAST:event_jbNovo2ActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
@@ -177,6 +181,7 @@ public class SupermercadoView extends javax.swing.JFrame {
             Supermercado supermercado = SupermercadoController.getInstance().buscarID(id);
 
             MercadoEditView v = new MercadoEditView();
+            v.setModal(true);
             v.setLocationRelativeTo(null);
             v.setDados(supermercado);
             v.setVisible(true);
@@ -279,25 +284,15 @@ public class SupermercadoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDelete;
     private javax.swing.JButton jbEditar;
-    private javax.swing.JButton jbNovo;
-    private javax.swing.JButton jbNovo1;
     private javax.swing.JButton jbNovo2;
     private javax.swing.JButton jbOK;
-    private javax.swing.JComboBox jcbOpcao;
-    private javax.swing.JComboBox jcbOpcao1;
     private javax.swing.JComboBox jcbOpcao2;
-    private javax.swing.JTextField jtBusca;
-    private javax.swing.JTextField jtBusca1;
     private javax.swing.JTextField jtBusca2;
     private javax.swing.JTable jtDados;
     // End of variables declaration//GEN-END:variables

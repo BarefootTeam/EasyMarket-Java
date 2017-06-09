@@ -203,8 +203,10 @@ public class ProdutoView extends javax.swing.JFrame {
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
         ProdutoEditView v = new ProdutoEditView();
+        v.setModal(true);
         v.setLocationRelativeTo(null);
         v.setVisible(true);
+        jbOK.doClick();
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
@@ -217,6 +219,7 @@ public class ProdutoView extends javax.swing.JFrame {
            Produto produto = ProdutoController.getInstance().buscarID(id);
            
            ProdutoEditView v =  new ProdutoEditView();
+           v.setModal(true);
            v.setLocationRelativeTo(null);
            v.setDados(produto);
            v.setVisible(true);

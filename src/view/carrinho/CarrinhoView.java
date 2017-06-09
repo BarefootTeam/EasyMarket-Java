@@ -257,6 +257,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         jlbStatus.setText("Compra Iniciada");
 
         //Desativando enable em componentes
+        jbtIniciar.setEnabled(false);
         jbtAdd.setEnabled(true);
         jbtExcluir.setEnabled(true);
         jbtFinalizar.setEnabled(true);
@@ -284,6 +285,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                 jbtExcluir.setEnabled(false);
                 jbtFinalizar.setEnabled(false);
                 jbtBuscar.setEnabled(false);
+                jbtIniciar.setEnabled(true);
 
                 //Persistindo carrinho no banco
                 Carrinho c = new Carrinho();

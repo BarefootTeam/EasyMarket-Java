@@ -15,9 +15,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Produto;
 import model.Supermercado;
@@ -26,7 +29,7 @@ import model.Supermercado;
  *
  * @author Leo
  */
-public class ProdutoEditView extends javax.swing.JFrame {
+public class ProdutoEditView extends javax.swing.JDialog {
 
     /**
      * Creates new form AlunoEditView
@@ -390,8 +393,6 @@ public class ProdutoEditView extends javax.swing.JFrame {
         jtfDescricao.setText(produto.getDescricao());
         jtfPreco.setText(String.valueOf(produto.getPrecoCusto()));
         jcbMercado.getModel().setSelectedItem(produto.getSupermercado());
-        
-        
         
         //*********************************************************
         //Era para carregar a imagem quando pegar os dados do banco

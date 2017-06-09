@@ -34,6 +34,7 @@ public class PrincipalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         MENU = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiCadastroDeProduto = new javax.swing.JMenuItem();
@@ -46,6 +47,12 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(920, 741));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/img/18920626_1550163878347570_8004842491260693545_n.jpg"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1366, 720));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1366, 720));
+        jLabel1.setPreferredSize(null);
 
         jMenu1.setText("Cadastros");
 
@@ -113,11 +120,11 @@ public class PrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -148,7 +155,7 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiComprasActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.exit(EXIT_ON_CLOSE);
+        System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jmiSupermercadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSupermercadoActionPerformed
@@ -189,7 +196,7 @@ public class PrincipalView extends javax.swing.JFrame {
             public void run() {
                 PrincipalView v = new PrincipalView();
                 v.setLocationRelativeTo(null);
-                v.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                //v.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 v.setVisible(true);
             }
         });
@@ -197,6 +204,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MENU;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

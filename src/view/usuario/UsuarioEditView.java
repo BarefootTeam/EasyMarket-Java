@@ -16,7 +16,7 @@ import model.Usuario;
  *
  * @author Leo
  */
-public class UsuarioEditView extends javax.swing.JFrame {
+public class UsuarioEditView extends javax.swing.JDialog {
 
     /**
      * Creates new form UsuarioEditView

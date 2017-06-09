@@ -14,7 +14,7 @@ import model.Cliente;
  *
  * @author Leo
  */
-public class ClienteEditView extends javax.swing.JFrame {
+public class ClienteEditView extends javax.swing.JDialog {
 
     /**
      * Creates new form ClienteEditView

@@ -162,7 +162,7 @@ public class AutenticacaoUserView extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Olá, bem vindo ao Easy Market");
                     PrincipalView v = new PrincipalView();
                     v.setLocationRelativeTo(null);
-                    v.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    //v.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     v.setVisible(true);
 
                     this.setVisible(false);
@@ -182,7 +182,7 @@ public class AutenticacaoUserView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtEntrarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.exit(EXIT_ON_CLOSE);
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     //Validação dos campos em obrigatórios

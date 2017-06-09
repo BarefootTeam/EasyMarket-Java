@@ -221,8 +221,10 @@ public class ClienteView extends javax.swing.JFrame {
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
         ClienteEditView v = new ClienteEditView();
+        v.setModal(true);
         v.setLocationRelativeTo(null);
         v.setVisible(true);
+        jbOK.doClick();
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
@@ -235,6 +237,7 @@ public class ClienteView extends javax.swing.JFrame {
            Cliente cliente = ClienteController.getInstance().buscarID(id);
            
            ClienteEditView v =  new ClienteEditView();
+           v.setModal(true);
            v.setLocationRelativeTo(null);
            v.setDados(cliente);
            v.setVisible(true);

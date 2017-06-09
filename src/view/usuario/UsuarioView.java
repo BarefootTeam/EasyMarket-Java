@@ -199,8 +199,10 @@ public class UsuarioView extends javax.swing.JFrame {
 
     private void jbtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNovoActionPerformed
         UsuarioEditView v = new UsuarioEditView();
+        v.setModal(true);
         v.setLocationRelativeTo(null);
         v.setVisible(true);
+        jbtOK.doClick();
     }//GEN-LAST:event_jbtNovoActionPerformed
 
     private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
@@ -213,6 +215,7 @@ public class UsuarioView extends javax.swing.JFrame {
            Usuario usuario = UsuarioController.getInstance().buscarID(id);
            
            UsuarioEditView v =  new UsuarioEditView();
+           v.setModal(true);
            v.setLocationRelativeTo(null);
            v.setDados(usuario);
            v.setVisible(true);
